@@ -16,7 +16,7 @@ function App() {
         />
         
         <ImagemButton 
-          imagem="https://www.flaticon.com/svg/vstatic/svg/3917/3917172.svg?token=exp=1653569626~hmac=c071a1f345f46a58dd29a697eb88c202" 
+          imagem="https://www.pngmart.com/files/8/Plus-PNG-Free-Download.png" 
           texto="Ver mais"
         />
       </div>
