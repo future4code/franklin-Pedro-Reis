@@ -1,25 +1,25 @@
-import React, {useState} from 'react'
-import styled from 'styled-components'
+import React, { useState } from "react";
+import styled from "styled-components";
 
-import {IconeComContador} from '../IconeComContador/IconeComContador'
+import { IconeComContador } from "../IconeComContador/IconeComContador";
 
-import iconeCoracaoBranco from '../../img/favorite-white.svg'
-import iconeCoracaoPreto from '../../img/favorite.svg'
-import iconeComentario from '../../img/comment_icon.svg'
-import {SecaoComentario} from '../SecaoComentario/SecaoComentario'
+import iconeCoracaoBranco from "../../img/favorite-white.svg";
+import iconeCoracaoPreto from "../../img/favorite.svg";
+import iconeComentario from "../../img/comment_icon.svg";
+import { SecaoComentario } from "../SecaoComentario/SecaoComentario";
 
 const PostContainer = styled.div`
   border: 1px solid gray;
   width: 300px;
   margin-bottom: 10px;
-`
+`;
 
 const PostHeader = styled.div`
   height: 40px;
   display: flex;
   align-items: center;
   padding-left: 10px;
-`
+`;
 
 const PostFooter = styled.div`
   height: 40px;
@@ -27,85 +27,73 @@ const PostFooter = styled.div`
   align-items: center;
   padding: 0 10px;
   justify-content: space-between;
-`
+`;
 
 const UserPhoto = styled.img`
   height: 30px;
   width: 30px;
   margin-right: 10px;
   border-radius: 50%;
-`
+`;
 
 const PostPhoto = styled.img`
   width: 100%;
-`
+`;
 
-function Post(props){
-  const [state, setState] = useState({
-    curtido: false,
-    numeroCurtidas: 0,
-    comentando: false,
-    numeroComentarios: 0
-  })
-
-  const [numeroCurtidas, setnumeroCurtidas] = useState (0)
-  const [curtido, setCurtido] = useState(false)
-  const [comentando, setComentando] = useState(false)
-  const [numeroComentarios, setNumeroComentarios] = useState(0)
-
-
+function Post(props) {
+  const [numeroCurtidas, setnumeroCurtidas] = useState(0);
+  const [curtido, setCurtido] = useState(false);
+  const [comentando, setComentando] = useState(false);
+  const [numeroComentarios, setNumeroComentarios] = useState(0);
 
   const contadorCurtida = () => {
-    if(!curtido){
-    setnumeroCurtidas(numeroCurtidas +1)
-  }
-    else{
-      setnumeroCurtidas(numeroCurtidas -1)
+    if (!curtido) {
+      setnumeroCurtidas(numeroCurtidas + 1);
+    } else {
+      setnumeroCurtidas(numeroCurtidas - 1);
     }
-  }
+  };
 
   const onClickCurtida = () => {
-    setCurtido(!curtido)
-    contadorCurtida()
-  }
-  
+    setCurtido(!curtido);
+    contadorCurtida();
+  };
 
-  
   const onClickComentario = () => {
-    setComentando(!comentando)
-    if(comentando) {
-      componenteComentario = <SecaoComentario aoEnviar={aoEnviarComentario}/>
+    setComentando(!comentando);
+    if (comentando) {
+      componenteComentario = <SecaoComentario aoEnviar={aoEnviarComentario} />;
     }
-    console.log(comentando)
-  }
-  
+    console.log(comentando);
+  };
+
   const aoEnviarComentario = () => {
-    setComentando(false)
-    setNumeroComentarios(numeroComentarios + 1)
+    setComentando(false);
+    setNumeroComentarios(numeroComentarios + 1);
+  };
+
+  let iconeCurtida;
+
+  if (curtido) {
+    iconeCurtida = iconeCoracaoPreto;
+  } else {
+    iconeCurtida = iconeCoracaoBranco;
   }
 
-  let iconeCurtida
+  let componenteComentario;
 
-    if(curtido) {
-      iconeCurtida = iconeCoracaoPreto
-    } else {
-      iconeCurtida = iconeCoracaoBranco 
-    }
+  if (comentando) {
+    componenteComentario = <SecaoComentario aoEnviar={aoEnviarComentario} />;
+  }
 
-    let componenteComentario
-
-    if(comentando) {
-      componenteComentario = <SecaoComentario aoEnviar={aoEnviarComentario}/>
-    }
-
-  return(
+  return (
     <PostContainer>
       <PostHeader>
-        <UserPhoto src={props.fotoUsuario} alt={'Imagem do usuario'}/>
+        <UserPhoto src={props.fotoUsuario} alt={"Imagem do usuario"} />
         <p>{props.nomeUsuario}</p>
       </PostHeader>
 
-      <PostPhoto src={props.fotoPost} alt={'Imagem do post'}/>
+      <PostPhoto src={props.fotoPost} alt={"Imagem do post"} />
 
       <PostFooter>
         <IconeComContador
@@ -122,8 +110,7 @@ function Post(props){
       </PostFooter>
       {componenteComentario}
     </PostContainer>
-  )
+  );
 }
 
-
-export default Post
+export default Post;
