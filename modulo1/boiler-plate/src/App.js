@@ -25,7 +25,9 @@ function App() {
 
   useEffect(() => {
     const lista = JSON.parse(localStorage.getItem("tarefas"));
-    setTarefa(lista);
+    {
+      lista ? setTarefa(lista) : setTarefa([]);
+    }
   }, []);
 
   useEffect(() => {
