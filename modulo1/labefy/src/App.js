@@ -82,7 +82,7 @@ const PlaylistsItemBox = styled.span`
   font-weight: 500;
   border-radius: 4px;
   margin: 2px;
-  width: 160px;
+  width: 100%;
   height: 40px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.07),
     0 4px 8px rgba(0, 0, 0, 0.07), 0 8px 16px rgba(0, 0, 0, 0.07),
@@ -94,6 +94,7 @@ function App() {
   const [selectedPlaylist, setSelectedPlaylist] = useState();
   const [tracks, setTracks] = useState();
   const [selectedTrack, setSelectedTrack] = useState();
+  const [isLoading, setIsLoading] = useState(false);
   const playlistInput = useRef();
   const trackNameInput = useRef();
   const trackArtistInput = useRef();
@@ -117,6 +118,7 @@ function App() {
         )
         .then((response) => {
           setPlaylists(response.data.result.list);
+          // setIsLoading(false);
         })
         .catch((e) => {
           alert(e);
@@ -124,6 +126,10 @@ function App() {
     };
     getAllPlaylists();
   }, [headers, playlists]);
+
+  useEffect(() => {
+    getTracks();
+  }, [selectedPlaylist, tracks]);
 
   const postPlaylist = () => {
     axios
@@ -170,8 +176,8 @@ function App() {
       });
   };
 
-  const postTrack = async () => {
-    await axios
+  const postTrack = () => {
+    axios
       .post(
         `https://us-central1-labenu-apis.cloudfunctions.net/labefy/playlists/${selectedPlaylist.id}/tracks
     `,
@@ -184,7 +190,7 @@ function App() {
       )
       .then((response) => {
         alert(
-          `${trackNameInput.current.value} adicionada a Playlist com sucesso`
+          `${trackNameInput.current.value} adicionada a playlist ${selectedPlaylist.name} com sucesso`
         );
       })
       .catch((e) => alert(e));
@@ -237,7 +243,7 @@ function App() {
       return (
         <li
           key={track.id}
-          onClick={() => window.open(track.url, "_blank")}
+          // onClick={() => window.open(track.url, "_blank")}
           onDoubleClick={() => {
             setSelectedTrack(track);
             deleteTrack();
@@ -270,7 +276,7 @@ function App() {
             <Button onClick={postTrack}>+</Button>
           </FormDiv>
           <h2>Musicas da Playlist</h2>
-          {tracksList}
+          {isLoading ? <p>Carregando...</p> : tracksList}
         </LabefyDiv>
       </GlassBox>
     </LabefyBox>
