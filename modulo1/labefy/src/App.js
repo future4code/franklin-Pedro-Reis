@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useState, useRef, useEffect } from "react";
 import axios from "axios";
+import { Iframe, YoutubeCard } from "./components/YoutubeCard";
 
 const LabefyBox = styled.div`
   display: flex;
@@ -164,15 +165,19 @@ function App() {
       });
   };
 
-  const getTracks = async () => {
+  const getTracks = async (id) => {
+    setIsLoading(true);
     await axios
       .get(
-        `https://us-central1-labenu-apis.cloudfunctions.net/labefy/playlists/${selectedPlaylist.id}/tracks
+        `https://us-central1-labenu-apis.cloudfunctions.net/labefy/playlists/${id}/tracks
     `,
         headers
       )
       .then((response) => {
         setTracks(response.data.result.tracks);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   };
 
@@ -226,7 +231,7 @@ function App() {
         key={playlist.id}
         onClick={() => {
           setSelectedPlaylist(playlist);
-          getTracks();
+          getTracks(playlist.id);
         }}
         onDoubleClick={() => {
           setSelectedPlaylist(playlist);
@@ -254,7 +259,7 @@ function App() {
       );
     })
   ) : (
-    <span>Selecione uma Playlist</span>
+    <span>Insira músicas na sua playlist</span>
   );
 
   return (
@@ -276,6 +281,13 @@ function App() {
             <Button onClick={postTrack}>+</Button>
           </FormDiv>
           <h2>Musicas da Playlist</h2>
+          <div>
+            {selectedPlaylist ? (
+              <h3>{selectedPlaylist.name}</h3>
+            ) : (
+              <h3>Selecione uma Playlist</h3>
+            )}
+          </div>
           {isLoading ? <p>Carregando...</p> : tracksList}
         </LabefyDiv>
       </GlassBox>
