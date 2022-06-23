@@ -1,11 +1,10 @@
-import { MainBox } from "./components/MainBox";
-import { HomePage } from "./pages/HomePage";
+import { Router } from "./routes/Router";
 
 function App() {
   return (
-    <MainBox>
-      <HomePage />
-    </MainBox>
+    <div>
+      <Router />
+    </div>
   );
 }
 
