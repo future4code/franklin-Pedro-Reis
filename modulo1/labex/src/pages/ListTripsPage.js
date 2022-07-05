@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import { Header } from "../components/Header";
-import { goToTripDetails } from "../routes/coordinator";
+import { goToTripForm } from "../routes/coordinator";
 import { getTrips } from "../services/getTrips";
 
 const TripsDiv = styled.div`
@@ -65,7 +65,7 @@ export const ListTripsPage = () => {
           {trips.map((trip) => {
             return (
               <TripBox
-                onClick={() => goToTripDetails(navigate, trip.id)}
+                onClick={() => goToTripForm(navigate, trip.id)}
                 key={trip.id}
               >
                 {trip.name}

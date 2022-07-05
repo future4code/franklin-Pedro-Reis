@@ -13,8 +13,6 @@ import { deleteTrip } from "../services/deleteTrip";
 export const TripDetailsPage = () => {
   const navigate = useNavigate();
   const [trip, setTrip] = useState([]);
-  // const [approvedTravellers, setApprovedTravellers] = useState([]);
-  // const [toApprovedTravellers, setToApprovedTravellers] = useState([]);
   const tripParams = useParams();
   const token = localStorage.getItem("token");
 
@@ -41,20 +39,6 @@ export const TripDetailsPage = () => {
     loadTrip();
   }, []);
 
-  // useEffect(() => {
-  //   const setTravellers = () => {
-  //     setApprovedTravellers(trip.approved);
-  //     setToApprovedTravellers(trip.candidates);
-  //     console.log(approvedTravellers);
-  //     console.log(toApprovedTravellers);
-  //   };
-  //   setTravellers();
-  // }, [trip]);
-
-  // const deleteSelectedTrip = () => {
-  //   deleteTrip();
-  // };
-
   return (
     <div>
       <Link to="/">
@@ -73,6 +57,9 @@ export const TripDetailsPage = () => {
         {/* {toApprovedTravellers.map((person) => {
           return <div key={person.id}>{person.name}</div>;
         })} */}
+        <button onClick={() => console.log(trip.candidates, trip.approved)}>
+          Trip
+        </button>
         <MainButton
           onClick={() =>
             deleteTrip({

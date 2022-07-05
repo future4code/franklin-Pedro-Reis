@@ -14,8 +14,12 @@ export const Router = () => {
       <Routes>
         <Route index element={<HomePage />} />
         <Route path="lista-de-viagens" element={<ListTripsPage />} />
-        <Route
+        {/* <Route
           path="lista-de-viagens/:tripId"
+          element={<ApplicationFormPage />}
+        /> */}
+        <Route
+          path="inscreva-se-na-viagem/:tripId"
           element={<ApplicationFormPage />}
         />
         <Route path="login" element={<LoginPage />} />

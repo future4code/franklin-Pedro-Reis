@@ -28,7 +28,18 @@ export const Input = (input) => {
       <LabelDiv>
         <label>{input.label}</label>
       </LabelDiv>
-      <InputBox placeholder={input.placeholder} ref={input.text} />
+      <InputBox
+        onChange={input.onChange}
+        name={input.name}
+        value={input.value}
+        placeholder={input.placeholder}
+        ref={input.text}
+        required
+        type={input.type}
+        pattern={input.pattern}
+        title={input.title}
+        min={input.min}
+      />
     </InputDiv>
   );
 };

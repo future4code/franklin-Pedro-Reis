@@ -21,6 +21,10 @@ export const goToTripDetails = (navigate, props) => {
   navigate(`/detalhes-da-viagem/${props}`);
 };
 
+export const goToTripForm = (navigate, props) => {
+  navigate(`/inscreva-se-na-viagem/${props}`);
+};
+
 export const goToSignUp = (navigate) => {
   navigate("/signup");
 };
