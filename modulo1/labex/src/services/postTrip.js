@@ -1,13 +1,12 @@
-import axios from "axios";
-import { baseUrl } from "../constants/baseUrl";
+import { axiosInstance } from "./axiosInstance";
 
 export const postTrip = async (props) => {
-  const response = await axios.post(`${baseUrl}/trips`, {
+  const response = await axiosInstance.post(`/trips`, {
     name: props.name,
     planet: props.planet,
     date: props.date,
     description: props.description,
-    durationInDays: props.duration,
+    durationInDays: props.durationInDays,
   });
   return response;
 };

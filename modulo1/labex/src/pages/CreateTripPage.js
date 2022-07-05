@@ -1,12 +1,11 @@
-import { Header } from "../components/Header";
+import { useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-import { goToHome } from "../routes/coordinator";
-import { MainBox } from "../components/MainBox";
-import { OrangeText } from "../components/OrangeText";
+import { Header } from "../components/Header";
 import { Input } from "../components/Input";
+import { MainBox } from "../components/MainBox";
 import { MainButton } from "../components/MainButton";
-import { useRef } from "react";
+import { OrangeText } from "../components/OrangeText";
+import { goToAdminHomePage, goToHome } from "../routes/coordinator";
 import { postTrip } from "../services/postTrip";
 
 export const CreateTripPage = () => {
@@ -25,13 +24,20 @@ export const CreateTripPage = () => {
     }
   }, []);
 
-  //   {
-  //     "name": "Ano novo em Mercúrio",
-  //     "planet": "Mercúrio",
-  //     "date": "31/12/2019",
-  //     "description": "Venha passar a virada pertinho do Sol!",
-  //     "durationInDays": 7
-  // }
+  const newTrip = async () => {
+    try {
+      await postTrip({
+        name: nameRef.current.value,
+        planet: planetRef.current.value,
+        date: dateRef.current.value,
+        description: descriptionRef.current.value,
+        durationInDays: durationRef.current.value,
+      });
+      goToAdminHomePage(navigate);
+    } catch (e) {
+      alert(e);
+    }
+  };
 
   return (
     <div>
@@ -55,18 +61,7 @@ export const CreateTripPage = () => {
           label="duração"
           placeholder="quanto tempo vamos viajar"
         />
-        <MainButton
-          onClick={() =>
-            postTrip({
-              name: nameRef,
-              planet: planetRef,
-              date: dateRef,
-              description: descriptionRef,
-              durationInDays: durationRef,
-            })
-          }
-          name="Criar Viagem"
-        />
+        <MainButton onClick={newTrip} name="Criar Viagem" />
       </MainBox>
     </div>
   );

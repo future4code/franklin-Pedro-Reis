@@ -1,9 +1,10 @@
 import { OrangeText } from "../components/OrangeText";
-import { useState } from "react";
-import { TripCard } from "../components/TripCard";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Header } from "../components/Header";
+import { goToTripDetails } from "../routes/coordinator";
+import { getTrips } from "../services/getTrips";
 
 const TripsDiv = styled.div`
   display: flex;
@@ -17,27 +18,39 @@ const TripsCardGrid = styled.div`
   grid-gap: 20px;
 `;
 
+const TripBox = styled.div`
+  width: 140px;
+  height: 100px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border: 1px solid;
+  border-radius: 4px;
+  border-color: rgb(0, 0, 0, 0.2);
+  :hover {
+    border-color: #fac710;
+    background-color: #fac710;
+  }
+`;
+
 export const ListTripsPage = () => {
-  const [trips, setTrips] = useState([
-    <TripCard
-      alt="Random"
-      src="https://picsum.photos/150
-    "
-      text="Random"
-    />,
-    <TripCard
-      alt="Random2"
-      src="https://picsum.photos/150
-    "
-      text="Random 2"
-    />,
-    <TripCard
-      alt="Random3"
-      src="https://picsum.photos/150
-    "
-      text="Random 3"
-    />,
-  ]);
+  const navigate = useNavigate();
+  const [trips, setTrips] = useState([]);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const loadTrips = async () => {
+      try {
+        const tripList = await getTrips(token);
+        setTrips(tripList.trips);
+      } catch (e) {
+        alert(e.response);
+      }
+    };
+    loadTrips();
+  }, []);
 
   return (
     <div>
@@ -49,11 +62,16 @@ export const ListTripsPage = () => {
           Viagens <OrangeText name="Labex" />
         </h1>
         <TripsCardGrid>
-          {trips.map((trip) => (
-            <Link to={`${trip.props.alt}`}>
-              <div>{trip}</div>
-            </Link>
-          ))}
+          {trips.map((trip) => {
+            return (
+              <TripBox
+                onClick={() => goToTripDetails(navigate, trip.id)}
+                key={trip.id}
+              >
+                {trip.name}
+              </TripBox>
+            );
+          })}
         </TripsCardGrid>
       </TripsDiv>
     </div>

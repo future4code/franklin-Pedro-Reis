@@ -13,8 +13,8 @@ import { deleteTrip } from "../services/deleteTrip";
 export const TripDetailsPage = () => {
   const navigate = useNavigate();
   const [trip, setTrip] = useState([]);
-  const [approvedTravellers, setApprovedTravellers] = useState([]);
-  const [toApprovedTravellers, setToApprovedTravellers] = useState([]);
+  // const [approvedTravellers, setApprovedTravellers] = useState([]);
+  // const [toApprovedTravellers, setToApprovedTravellers] = useState([]);
   const tripParams = useParams();
   const token = localStorage.getItem("token");
 
@@ -78,7 +78,9 @@ export const TripDetailsPage = () => {
             deleteTrip({
               path: tripParams.tripId,
               token: token,
-            }) & goToAdminHomePage(navigate)
+            }) &
+            alert("Trip delatada") &
+            goToAdminHomePage(navigate)
           }
           name={"Excluir Viagem"}
         />
