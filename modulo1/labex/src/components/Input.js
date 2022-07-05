@@ -28,7 +28,7 @@ export const Input = (input) => {
       <LabelDiv>
         <label>{input.label}</label>
       </LabelDiv>
-      <InputBox placeholder={input.placeholder} />
+      <InputBox placeholder={input.placeholder} ref={input.text} />
     </InputDiv>
   );
 };

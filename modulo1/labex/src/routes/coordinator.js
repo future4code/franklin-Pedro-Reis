@@ -6,7 +6,7 @@ export const goToHome = (navigate) => {
 };
 
 export const goToLogin = (navigate) => {
-  navigate("login");
+  navigate("/login");
 };
 
 export const goToAdminHomePage = (navigate) => {
@@ -17,6 +17,10 @@ export const goToCreateTripPage = (navigate) => {
   navigate("/create-trip");
 };
 
-export const goToTripDetails = (navigate) => {
-  navigate("/detalhes-da-viagem");
+export const goToTripDetails = (navigate, props) => {
+  navigate(`/detalhes-da-viagem/${props}`);
+};
+
+export const goToSignUp = (navigate) => {
+  navigate("/signup");
 };

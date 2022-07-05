@@ -6,10 +6,9 @@ import { Input } from "../components/Input";
 import { OrangeText } from "../components/OrangeText";
 import { useRef } from "react";
 import axios from "axios";
-import { goToAdminHomePage } from "../routes/coordinator";
-import { goToSignUp } from "../routes/coordinator";
+import { goToLogin } from "../routes/coordinator";
 
-export const LoginPage = () => {
+export const SignUpPage = () => {
   const emailRef = useRef("");
   const passwordRef = useRef("");
 
@@ -22,14 +21,14 @@ export const LoginPage = () => {
     };
     axios
       .post(
-        `    https://us-central1-labenu-apis.cloudfunctions.net/labeX/darvas/login
+        `    https://us-central1-labenu-apis.cloudfunctions.net/labeX/darvas/signup
+
     `,
         body
       )
       .then((response) => {
-        console.log(response.data.token);
-        localStorage.setItem("token", response.data.token);
-        goToAdminHomePage(navigate);
+        console.log(response.data);
+        goToLogin(navigate);
       })
       .catch((e) => {
         console.log(e.response);
@@ -43,7 +42,7 @@ export const LoginPage = () => {
       </Link>
       <MainBox>
         <h1>
-          Minha conta <OrangeText name="Labex" />
+          Criar conta <OrangeText name="Labex" />
         </h1>
         <Input text={emailRef} label="email" placeholder="Insira seu Email" />
         <Input
@@ -51,8 +50,8 @@ export const LoginPage = () => {
           label="senha"
           placeholder="Insira sua senha"
         />
-        <MainButton onClick={mainButtonAction} name="Login" />
-        <p onClick={() => goToSignUp(navigate)}>Crie uma conta aqui</p>
+        <MainButton onClick={mainButtonAction} name="Criar Conta" />
+        <p onClick={() => goToLogin(navigate)}>Já tem uma conta? Clique aqui</p>
       </MainBox>
     </div>
   );

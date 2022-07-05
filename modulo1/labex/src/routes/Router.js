@@ -6,6 +6,7 @@ import { LoginPage } from "../pages/LoginPage";
 import { AdminHomePage } from "../pages/AdminHomePage";
 import { CreateTripPage } from "../pages/CreateTripPage";
 import { TripDetailsPage } from "../pages/TripDetailsPage";
+import { SignUpPage } from "../pages/SingUpPage";
 
 export const Router = () => {
   return (
@@ -18,9 +19,13 @@ export const Router = () => {
           element={<ApplicationFormPage />}
         />
         <Route path="login" element={<LoginPage />} />
+        <Route path="signup" element={<SignUpPage />} />
         <Route path="admin" element={<AdminHomePage />} />
         <Route path="create-trip" element={<CreateTripPage />} />
-        <Route path="detalhes-da-viagem" element={<TripDetailsPage />} />
+        <Route
+          path="detalhes-da-viagem/:tripId"
+          element={<TripDetailsPage />}
+        />
       </Routes>
     </BrowserRouter>
   );
