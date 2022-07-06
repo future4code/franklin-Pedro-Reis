@@ -49,14 +49,16 @@ export const TripDetailsPage = () => {
           <OrangeText name={trip.name} />
         </h1>
         <p>{trip.description}</p>
-        <h3>Aprovados:</h3>
-        {/* {approvedTravellers.map((person) => {
-          return <div key={person.id}>{person.name}</div>;
-        })} */}
         <h3>Em análise</h3>
-        {/* {toApprovedTravellers.map((person) => {
-          return <div key={person.id}>{person.name}</div>;
-        })} */}
+        {trip.candidates &&
+          trip.candidates.map((person) => {
+            return <div key={person.id}>{person.name}</div>;
+          })}
+        <h3>Aprovados</h3>
+        {trip.approved &&
+          trip.approved.map((person) => {
+            return <div key={person.id}>{person.name}</div>;
+          })}
         <button onClick={() => console.log(trip.candidates, trip.approved)}>
           Trip
         </button>
