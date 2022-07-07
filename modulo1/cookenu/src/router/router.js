@@ -9,18 +9,22 @@ import { MainBox } from "../constants/styled";
 
 export const Router = ({ rightButtonText, setRightButtonText }) => {
   return (
-    <MainBox>
+    <div>
       <Routes>
         <Route index element={<RecipesListPage />} />
-        <Route
-          path="login"
-          element={<LoginPage setRightButtonText={setRightButtonText} />}
-        />
-        <Route path="criar-conta" element={<SignUpPage />} />
-        <Route path="receita/:recipeId" element={<RecipeDetailPage />} />
-        <Route path="criar-receita" element={<AddRecipesPage />} />
-        <Route path="*" element={<ErrorPage />} />
       </Routes>
-    </MainBox>
+      <MainBox>
+        <Routes>
+          <Route
+            path="login"
+            element={<LoginPage setRightButtonText={setRightButtonText} />}
+          />
+          <Route path="criar-conta" element={<SignUpPage />} />
+          <Route path="receita/:recipeId" element={<RecipeDetailPage />} />
+          <Route path="criar-receita" element={<AddRecipesPage />} />
+          <Route path="*" element={<ErrorPage />} />
+        </Routes>
+      </MainBox>
+    </div>
   );
 };
