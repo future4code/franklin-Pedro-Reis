@@ -1,18 +1,12 @@
-import { AddRecipesPage } from "./pages/AddRecipesPage/AddRecipesPage";
-import { LoginPage } from "./pages/LoginPage/LoginPage";
-import { RecipeDetailPage } from "./pages/ReceipeDetailPage/ReceipeDetailPage";
-import { RecipesListPage } from "./pages/RecipesListPage/RecipesListPage";
-import { SignUpPage } from "./pages/SignUpPage/SignUpPage";
+import { ThemeProvider } from "@material-ui/core/styles";
+import { theme } from "./constants/theme";
+import { Router } from "./router/Router";
 
 function App() {
   return (
-    <div>
-      <AddRecipesPage />
-      <LoginPage />
-      <RecipeDetailPage />
-      <RecipesListPage />
-      <SignUpPage />
-    </div>
+    <ThemeProvider theme={theme}>
+      <Router />
+    </ThemeProvider>
   );
 }
 

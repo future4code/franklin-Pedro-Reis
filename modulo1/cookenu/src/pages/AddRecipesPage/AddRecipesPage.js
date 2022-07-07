@@ -1,3 +1,12 @@
+import { useNavigate } from "react-router-dom";
+import { goToLogin } from "../../router/coordinator";
+
 export const AddRecipesPage = () => {
-  return <div>Add Recipe Page</div>;
+  const navigate = useNavigate();
+  return (
+    <div>
+      Add Recipe Page
+      <button onClick={() => goToLogin(navigate)}>Login</button>
+    </div>
+  );
 };
