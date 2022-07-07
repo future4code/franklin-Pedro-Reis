@@ -1,11 +1,13 @@
 import { FormDiv, InputField, LogoImage, MainButton } from "./styled";
 import logo from "../../assets/logo.png";
 import { useForm } from "../../hooks/useForm";
-import { Button } from "@material-ui/core";
+import { Button, CircularProgress } from "@material-ui/core";
 import { goToLogin } from "../../router/coordinator";
 import { useNavigate } from "react-router-dom";
 import { useUnprotectedPage } from "../../hooks/useUnprotectedPage";
 import { signup } from "../../services/user";
+import { useState } from "react";
+import { MainBox } from "../../constants/styled";
 
 export const SignUpPage = () => {
   useUnprotectedPage();
@@ -15,15 +17,16 @@ export const SignUpPage = () => {
     email: "",
     password: "",
   });
+  const [isLoading, setIsLoading] = useState(false);
 
   const onSubmitForm = (ev) => {
     console.log(form);
     ev.preventDefault();
-    signup(form, cleanFields, navigate);
+    signup(form, cleanFields, navigate, setIsLoading);
   };
 
   return (
-    <div>
+    <MainBox>
       <LogoImage src={logo} />
       <form onSubmit={onSubmitForm}>
         <FormDiv>
@@ -50,7 +53,13 @@ export const SignUpPage = () => {
             required
             type={"password"}
           />
-          <MainButton>CRIAR CONTA</MainButton>
+          <MainButton>
+            {isLoading ? (
+              <CircularProgress color={"inherit"} size={`24px`} />
+            ) : (
+              <>Criar Conta</>
+            )}
+          </MainButton>
         </FormDiv>
       </form>
       <Button
@@ -61,6 +70,6 @@ export const SignUpPage = () => {
       >
         Já possui uma conta? Faça o login
       </Button>
-    </div>
+    </MainBox>
   );
 };

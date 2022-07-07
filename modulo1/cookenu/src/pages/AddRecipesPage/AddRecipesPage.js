@@ -3,6 +3,9 @@ import { useProtectedPage } from "../../hooks/useProtectedPage";
 import { FormDiv, InputField, MainButton } from "./styled";
 import { useForm } from "../../hooks/useForm";
 import { addRecipe } from "../../services/recipe";
+import { useState } from "react";
+import { CircularProgress, Typography } from "@material-ui/core";
+import { MainBox } from "../../constants/styled";
 
 export const AddRecipesPage = () => {
   useProtectedPage();
@@ -12,15 +15,23 @@ export const AddRecipesPage = () => {
     description: "",
     image: "",
   });
+  const [isLoading, setIsLoading] = useState(false);
 
   const onSubmitForm = (ev) => {
     ev.preventDefault();
-    addRecipe(form, cleanFields, navigate);
+    addRecipe(form, cleanFields, navigate, setIsLoading);
   };
 
   return (
-    <div>
-      <h1>Adicionar Receita</h1>
+    <MainBox>
+      <Typography
+        gutterBottom
+        align={"center"}
+        variant={"h4"}
+        color={"primary"}
+      >
+        Adicionar Receita
+      </Typography>
       <form onSubmit={onSubmitForm}>
         <FormDiv>
           <InputField
@@ -44,9 +55,16 @@ export const AddRecipesPage = () => {
             onChange={onChange}
             required
           />
-          <MainButton>Adicionar Receita</MainButton>{" "}
+          <MainButton>
+            {" "}
+            {isLoading ? (
+              <CircularProgress color={"inherit"} size={`24px`} />
+            ) : (
+              <>Criar Receita</>
+            )}
+          </MainButton>{" "}
         </FormDiv>
       </form>
-    </div>
+    </MainBox>
   );
 };

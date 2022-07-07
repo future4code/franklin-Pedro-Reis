@@ -7,4 +7,5 @@ export const MainBox = styled.div`
   justify-content: center;
   text-align: center;
   font-family: Arial, Helvetica, sans-serif;
+  margin-top: 5vh;
 `;
