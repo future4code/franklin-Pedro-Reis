@@ -59,9 +59,7 @@ export const TripDetailsPage = () => {
           trip.approved.map((person) => {
             return <div key={person.id}>{person.name}</div>;
           })}
-        <button onClick={() => console.log(trip.candidates, trip.approved)}>
-          Trip
-        </button>
+
         <MainButton
           onClick={() =>
             deleteTrip({
