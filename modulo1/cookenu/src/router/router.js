@@ -7,7 +7,7 @@ import { ErrorPage } from "../pages/ErroPage/ErrorPage";
 import { SignUpPage } from "../pages/SignUpPage";
 import { MainBox } from "../constants/styled";
 
-export const Router = ({ rightButtonText, setRightButtonText }) => {
+export const Router = ({ setRightButtonText }) => {
   return (
     <div>
       <Routes>
@@ -20,7 +20,7 @@ export const Router = ({ rightButtonText, setRightButtonText }) => {
             element={<LoginPage setRightButtonText={setRightButtonText} />}
           />
           <Route path="criar-conta" element={<SignUpPage />} />
-          <Route path="receita/:recipeId" element={<RecipeDetailPage />} />
+          <Route path="receita/:id" element={<RecipeDetailPage />} />
           <Route path="criar-receita" element={<AddRecipesPage />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>

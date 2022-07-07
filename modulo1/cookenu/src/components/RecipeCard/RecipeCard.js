@@ -1,12 +1,8 @@
-import { useNavigate } from "react-router-dom";
-import { goToRecipeDetails } from "../../router/coordinator";
 import { RecipeCardBox, RecipeCardImage, RecipeCardTextBox } from "./styled";
 
-export const RecipeCard = ({ src, text, id }) => {
-  const navigate = useNavigate;
-
+export const RecipeCard = ({ src, text, onClick }) => {
   return (
-    <RecipeCardBox onClick={() => goToRecipeDetails(navigate)}>
+    <RecipeCardBox onClick={onClick}>
       <RecipeCardImage src={src} />
       <RecipeCardTextBox>
         <p>{text}</p>
