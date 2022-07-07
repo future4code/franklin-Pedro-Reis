@@ -7,14 +7,14 @@ import { useNavigate } from "react-router-dom";
 import { login } from "../../services/user";
 import { useUnprotectedPage } from "../../hooks/useUnprotectedPage";
 
-export const LoginPage = () => {
+export const LoginPage = ({ setRightButtonText }) => {
   useUnprotectedPage();
   const navigate = useNavigate();
   const { form, onChange, cleanFields } = useForm({ email: "", password: "" });
 
   const onSubmitForm = (ev) => {
     ev.preventDefault();
-    login(form, cleanFields, navigate);
+    login(form, cleanFields, navigate, setRightButtonText);
   };
 
   return (

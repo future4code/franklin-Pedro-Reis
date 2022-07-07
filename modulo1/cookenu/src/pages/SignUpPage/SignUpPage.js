@@ -5,12 +5,13 @@ import { Button } from "@material-ui/core";
 import { goToLogin } from "../../router/coordinator";
 import { useNavigate } from "react-router-dom";
 import { useUnprotectedPage } from "../../hooks/useUnprotectedPage";
+import { signup } from "../../services/user";
 
 export const SignUpPage = () => {
   useUnprotectedPage();
   const navigate = useNavigate();
-  const { form, onChange, clear } = useForm({
-    nome: "",
+  const { form, onChange, cleanFields } = useForm({
+    name: "",
     email: "",
     password: "",
   });
@@ -18,6 +19,7 @@ export const SignUpPage = () => {
   const onSubmitForm = (ev) => {
     console.log(form);
     ev.preventDefault();
+    signup(form, cleanFields, navigate);
   };
 
   return (
@@ -27,8 +29,8 @@ export const SignUpPage = () => {
         <FormDiv>
           <InputField
             placeholder={"Nome"}
-            name={"nome"}
-            value={form.nome}
+            name={"name"}
+            value={form.name}
             onChange={onChange}
             required
           />
@@ -48,7 +50,7 @@ export const SignUpPage = () => {
             required
             type={"password"}
           />
-          <MainButton>FAZER LOGIN</MainButton>{" "}
+          <MainButton>CRIAR CONTA</MainButton>
         </FormDiv>
       </form>
       <Button
