@@ -4,14 +4,17 @@ import { useForm } from "../../hooks/useForm";
 import { Button } from "@material-ui/core";
 import { goToSignUp } from "../../router/coordinator";
 import { useNavigate } from "react-router-dom";
+import { login } from "../../services/user";
+import { useUnprotectedPage } from "../../hooks/useUnprotectedPage";
 
 export const LoginPage = () => {
+  useUnprotectedPage();
   const navigate = useNavigate();
-  const { form, onChange, clear } = useForm({ email: "", password: "" });
+  const { form, onChange, cleanFields } = useForm({ email: "", password: "" });
 
   const onSubmitForm = (ev) => {
-    console.log(form);
     ev.preventDefault();
+    login(form, cleanFields, navigate);
   };
 
   return (
