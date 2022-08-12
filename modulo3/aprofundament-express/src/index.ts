@@ -1,6 +1,6 @@
 import express from "express";
 import { AddressInfo } from "net";
-import { todos } from "./data";
+const fs = require("fs");
 
 const app = express();
 
@@ -15,24 +15,47 @@ const server = app.listen(process.env.PORT || 3003, () => {
   }
 });
 
+let rawdata = fs.readFileSync(
+  "/Users/colaborador/Desktop/franklin-Pedro-Reis/modulo3/aprofundament-express/src/data.json"
+);
+let tasks = JSON.parse(rawdata);
+
+const writeFile = () => {
+  fs.writeFile(
+    "/Users/colaborador/Desktop/franklin-Pedro-Reis/modulo3/aprofundament-express/src/data.json",
+    JSON.stringify(tasks),
+    (err: any) => {
+      if (err) throw err;
+      console.log("New data added");
+    }
+  );
+};
+
+interface Task {
+  userId: number;
+  id: number;
+  title: string;
+  completed: boolean;
+}
+
 app.get("/:userId/alltasks", (req, res) => {
   const userId = req.params.userId;
 
-  const allTasks = todos.filter((task: any) => {
+  const userTasks = tasks.filter((task: any) => {
     return task.userId === Number(userId);
   });
 
-  res.send(allTasks);
+  res.send(userTasks);
 });
 
 app.get("/:userId/finishedtasks", (req, res) => {
   const userId = req.params.userId;
 
-  const allTasks = todos.filter((task: any) => {
+  const userTasks = tasks.filter((task: any) => {
     return task.userId === Number(userId);
   });
 
-  const doneTaks = allTasks.filter((task: any) => {
+  const doneTaks = userTasks.filter((task: any) => {
     return task.completed === true;
   });
 
@@ -43,64 +66,61 @@ app.post("/:userId/newtask", (req, res) => {
   const userId = req.params.userId;
   const body = req.body;
 
-  const allTasks = todos.filter((task: any) => {
+  const newTask: Task = {
+    userId: Number(userId),
+    id: tasks.length + 1,
+    title: body.title,
+    completed: false,
+  };
+
+  tasks.push(newTask);
+
+  writeFile();
+
+  const userTasks = tasks.filter((task: any) => {
     return task.userId === Number(userId);
   });
 
-  allTasks.push(body);
-
-  res.send(allTasks);
-});
-
-app.get("/:userId/task/:taskId", (req, res) => {
-  const userId = req.params.userId;
-  const taskId = req.params.taskId;
-
-  const allTasks = todos.filter((task: any) => {
-    return task.userId === Number(userId);
-  });
-
-  const selectedTask = allTasks.filter((task: any) => {
-    return task.id === Number(taskId);
-  });
-
-  res.send(selectedTask);
+  res.send(userTasks);
 });
 
 app.post("/:userId/task/:taskId", (req, res) => {
   const userId = req.params.userId;
   const taskId = req.params.taskId;
 
-  const allTasks = todos.filter((task: any) => {
+  const userTasks = tasks.filter((task: any) => {
     return task.userId === Number(userId);
   });
 
-  const [selectedTask] = allTasks.filter((task: any) => {
+  const [selectedTask] = userTasks.filter((task: any) => {
     return task.id === Number(taskId);
   });
 
   selectedTask.completed = !selectedTask.completed;
 
-  res.send(selectedTask);
+  writeFile();
+
+  res.send(userTasks);
 });
 
 app.delete("/:userId/task/:taskId", (req, res) => {
   const userId = req.params.userId;
   const taskId = req.params.taskId;
 
-  const allTasks = todos.filter((task: any) => {
+  const userTasks = tasks.filter((task: any) => {
     return task.userId === Number(userId);
   });
 
-  const [selectedTask] = allTasks.filter((task: any) => {
+  const [selectedTask] = userTasks.filter((task: any) => {
     return task.id === Number(taskId);
   });
 
-  const index = allTasks.indexOf(selectedTask);
+  const index = tasks.indexOf(selectedTask);
 
   if (index > -1) {
-    allTasks.splice(index, 1);
+    tasks.splice(index, 1);
   }
+  writeFile();
 
-  res.send(allTasks);
+  res.send(userTasks);
 });
