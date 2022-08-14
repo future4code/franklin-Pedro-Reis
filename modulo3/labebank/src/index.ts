@@ -14,8 +14,6 @@ const server = app.listen(process.env.PORT || 3003, () => {
   }
 });
 
-console.log(new Date());
-
 interface UserInterface {
   name: string;
   cpf: number;
@@ -39,11 +37,26 @@ const userList: UsersInterface = [
     name: "Pedro",
     cpf: 16343406719,
     birth: new Date(1996, 10, 1),
-    balance: 0,
+    balance: 1000,
     extract: [
       {
-        value: 10.4,
-        date: new Date(2022, 8, 10),
+        value: 200,
+        date: new Date(2020, 1, 1),
+        description: "Saque conta corrente",
+      },
+      {
+        value: 200,
+        date: new Date(2021, 1, 1),
+        description: "Saque conta corrente",
+      },
+      {
+        value: 200,
+        date: new Date(2022, 12, 13),
+        description: "Saque conta corrente",
+      },
+      {
+        value: 200,
+        date: new Date(2023, 12, 13),
         description: "Saque conta corrente",
       },
     ],
@@ -129,13 +142,47 @@ app.post("/transaction/:cpf", (req, res) => {
     return user.cpf === Number(cpf);
   });
 
-  selectedUser.extract.push({
-    value: body.value,
-    date: new Date(body.date),
-    description: body.description,
+  if (new Date(body.date) < new Date()) {
+    res.send("Selecione uma data posterior a data de hoje");
+  }
+  if (selectedUser.balance < body.value) {
+    res.send("Voce não tem saldo para completar a transação");
+  }
+  if (!body.date) {
+    selectedUser.extract.push({
+      value: body.value,
+      date: new Date(),
+      description: body.description,
+    });
+    res.send(selectedUser);
+  } else {
+    selectedUser.extract.push({
+      value: body.value,
+      date: new Date(body.date),
+      description: body.description,
+    });
+    res.send(selectedUser);
+  }
+});
+
+app.put("/balanceUpdate/:cpf", (req, res) => {
+  const cpf = req.params.cpf;
+
+  const [selectedUser] = userList.filter((user: any) => {
+    return user.cpf === Number(cpf);
   });
 
-  selectedUser.balance = selectedUser.balance + body.value;
+  const launchesBeforeToday = selectedUser.extract.filter((launch: any) => {
+    return launch.date < new Date();
+  });
 
-  res.send(selectedUser.extract);
+  let missingUpdates = 0;
+
+  launchesBeforeToday.forEach((element) => {
+    missingUpdates += element.value;
+  });
+
+  const updatedBalance = "R$" + (selectedUser.balance + missingUpdates);
+
+  res.send(updatedBalance);
 });
