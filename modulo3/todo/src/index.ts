@@ -1,15 +1,22 @@
-import express from "express";
-import { AddressInfo } from "net";
+import app from "./app";
+import createTask from "./endpoints/createTask";
+import createUser from "./endpoints/createUser";
+import editUser from "./endpoints/editUser";
+import getTaskById from "./endpoints/getTaskById";
+import getTasksByUserId from "./endpoints/getTasksByUserId";
+import getUsers from "./endpoints/getUser";
+import getUserById from "./endpoints/getUserById";
 
-const app = express();
+app.get("/users", getUsers);
 
-app.use(express.json());
+app.post("/users", createUser);
 
-const server = app.listen(process.env.PORT || 3003, () => {
-  if (server) {
-    const address = server.address() as AddressInfo;
-    console.log(`Servidor rodando em http://localhost:${address.port}`);
-  } else {
-    console.error(`Falha ao iniciar o servidor.`);
-  }
-});
+app.get("/users/:id", getUserById);
+
+app.put("/users/:id/edit", editUser);
+
+app.post("/users/:id/task", createTask);
+
+app.get("/users/:id/task/:taskId", getTaskById);
+
+app.get("/users/:id/tasks", getTasksByUserId);

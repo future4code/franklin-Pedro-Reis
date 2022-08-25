@@ -13,3 +13,5 @@ const server = app.listen(process.env.PORT || 3003, () => {
     console.error(`Falha ao iniciar o servidor.`);
   }
 });
+
+export default app;
