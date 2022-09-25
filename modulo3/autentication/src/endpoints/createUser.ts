@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
 import connection from "../connection";
-import { user } from "../types";
+import Authenticator from "../services/authenticator";
+import { IdGenerator } from "../services/idGenerator";
+import { authenticationData, user } from "../types";
 
 export default async function createUser(
   req: Request,
@@ -23,13 +25,19 @@ export default async function createUser(
       throw new Error("Email já cadastrado");
     }
 
-    const id: string = Date.now().toString();
+    const id: string = new IdGenerator().generateId();
 
     const newUser: user = { id, name, nickname, email, password };
 
     await connection("to_do_list_users").insert(newUser);
 
-    res.status(201).send({ newUser });
+    const payload: authenticationData = {
+      id: newUser.id,
+    };
+
+    const token = new Authenticator().generateToken(payload);
+
+    res.status(201).send({ token });
   } catch (error: any) {
     if (res.statusCode === 200) {
       res.status(500).send({ message: "Internal server error" });
