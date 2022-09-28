@@ -1,6 +1,6 @@
 import { UserRole } from "../types";
 
-export interface UserDB {
+export interface UserTypesAtDatabase {
   id: string;
   name: string;
   email: string;

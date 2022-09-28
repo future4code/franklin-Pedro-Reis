@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import UserController from "./controller/UserController";
+import { userRouter } from "./router/userRouter";
 
 const app = express();
 app.use(express.json());
@@ -11,6 +11,4 @@ app.listen(3003, () => {
 });
 export default app;
 
-const userController = new UserController();
-
-app.post("/signup", userController.signup);
+app.use("/", userRouter);

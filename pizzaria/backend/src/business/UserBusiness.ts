@@ -1,4 +1,3 @@
-import { BaseDatabase } from "../database/BaseDatabase";
 import UserDatabase from "../database/UserDatabase";
 import User from "../model/User";
 import Authenticator, { authenticationData } from "../services/authenticator";
@@ -6,6 +5,13 @@ import HashManager from "../services/hashManager";
 import { IdGenerator } from "../services/idGenerator";
 
 export default class UserBusiness {
+  constructor(
+    protected userDatabase: UserDatabase,
+    protected authenticator: Authenticator,
+    protected idGenerator: IdGenerator,
+    protected hashManager: HashManager
+  ) {}
+
   public signup = async (input: any) => {
     const name = input.name;
     const email = input.email;
@@ -70,6 +76,74 @@ export default class UserBusiness {
     const token = new Authenticator().generateToken(payload);
 
     const response = {
+      token,
+    };
+
+    return response;
+  };
+
+  public login = async (input: any) => {
+    const email = input.email;
+    const password = input.password;
+
+    if (!email || !password) {
+      throw new Error("Por favor, preencha com e-mail e senha.");
+    }
+
+    if (typeof email !== "string" || email.length < 3) {
+      throw new Error("Verifique seu e-mail");
+    }
+
+    if (
+      !email.match(
+        /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+      )
+    ) {
+      throw new Error("Por favor, insira um e-mail válido");
+    }
+
+    if (typeof password !== "string" || password.length < 3) {
+      throw new Error("Parâmetro 'password' inválido");
+    }
+
+    const userDB = await this.userDatabase.loginUser(email);
+
+    if (!userDB) {
+      throw new Error("E-mail não cadastrado");
+    }
+
+    const user = new User(
+      userDB.id,
+      userDB.name,
+      userDB.email,
+      userDB.whatsapp,
+      userDB.password,
+      userDB.cep,
+      userDB.street,
+      userDB.district,
+      userDB.number,
+      userDB.reference,
+      userDB.role
+    );
+
+    const isPasswordCorrect = await this.hashManager.compare(
+      password,
+      user.getPassword()
+    );
+
+    if (!isPasswordCorrect) {
+      throw new Error("Senha incorreta");
+    }
+
+    const payload: authenticationData = {
+      id: user.getId(),
+      role: user.getRole(),
+    };
+
+    const token = this.authenticator.generateToken(payload);
+
+    const response = {
+      message: "Login realizado com sucesso",
       token,
     };
 

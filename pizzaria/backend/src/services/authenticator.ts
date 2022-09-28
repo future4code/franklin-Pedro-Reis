@@ -12,7 +12,7 @@ export type authenticationData = {
 export default class Authenticator {
   generateToken = (payload: authenticationData) => {
     return jwt.sign(payload, process.env.JWT_KEY as string, {
-      expiresIn: "5h",
+      expiresIn: process.env.JWT_EXPIRES_IN,
     });
   };
 
