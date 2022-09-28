@@ -17,7 +17,12 @@ export default class Authenticator {
   };
 
   getTokenData = (token: string) => {
-    const tokenData = jwt.verify(token, process.env.JWT_KEY as string);
-    return tokenData;
+    try {
+      const payload = jwt.verify(token, process.env.JWT_KEY as string);
+
+      return payload as authenticationData;
+    } catch (error) {
+      return null;
+    }
   };
 }

@@ -15,3 +15,8 @@ export interface SingUpInputTypes {
   reference: string;
   role: UserRole;
 }
+
+export enum PizzaFlavorStatus {
+  INSTOCK = "sem estoque",
+  OUTOFSTOCK = "em estoque",
+}
