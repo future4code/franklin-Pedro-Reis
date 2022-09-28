@@ -9,6 +9,7 @@ export interface UserDB {
   district: string;
   number: string;
   reference: string;
+  role: string;
 }
 
 export default class User {
@@ -16,12 +17,14 @@ export default class User {
     private id: string,
     private name: string,
     private email: string,
+    private whatsapp: string,
     private password: string,
     private cep: string,
     private street: string,
     private district: string,
     private number: string,
-    private reference: string
+    private reference: string,
+    private role: string
   ) {}
 
   public getId = () => {
@@ -32,6 +35,9 @@ export default class User {
   };
   public getEmail = () => {
     return this.email;
+  };
+  public getWhatsapp = () => {
+    return this.whatsapp;
   };
   public getPassword = () => {
     return this.password;
@@ -51,6 +57,9 @@ export default class User {
   public getReference = () => {
     return this.reference;
   };
+  public getRole = () => {
+    return this.role;
+  };
   public setId = (newId: string) => {
     this.id = newId;
   };
@@ -59,6 +68,9 @@ export default class User {
   };
   public setEmail = (newEmail: string) => {
     this.email = newEmail;
+  };
+  public setWhatsapp = (newWhatsapp: string) => {
+    this.whatsapp = newWhatsapp;
   };
   public setPassword = (newPassword: string) => {
     this.password = newPassword;
@@ -77,5 +89,8 @@ export default class User {
   };
   public setReference = (newReference: string) => {
     this.reference = newReference;
+  };
+  public setRole = (newRole: string) => {
+    this.role = newRole;
   };
 }

@@ -1,5 +1,7 @@
-import connection from "../connection";
+import { BaseDatabase } from "../database/BaseDatabase";
+import UserDatabase from "../database/UserDatabase";
 import User from "../model/User";
+import Authenticator, { authenticationData } from "../services/authenticator";
 import HashManager from "../services/hashManager";
 import { IdGenerator } from "../services/idGenerator";
 
@@ -13,7 +15,8 @@ export default class UserBusiness {
     const street = input.street;
     const district = input.district;
     const number = input.number;
-    const reference = input.referenc;
+    const reference = input.reference;
+    const role = input.role;
     if (
       !name ||
       !email ||
@@ -23,7 +26,7 @@ export default class UserBusiness {
       !street ||
       !district ||
       !number ||
-      reference
+      !reference
     ) {
       throw new Error("Favor insira todos os dados obrigatórios");
     }
@@ -33,14 +36,10 @@ export default class UserBusiness {
     if (password.lenght < 6) {
       throw new Error("A senha deve ter pelo menos 6 caracteres");
     }
-
-    const [user] = await connection("pizzaria_cliente").where({
-      email,
-      whatsapp,
-    });
-
-    if (user) {
-      throw new Error("Usuário já cadastrado");
+    if (role && role !== "admin" && role !== "normal") {
+      throw new Error(
+        "Insira o role do user: admin ou normal, deixe vazio para normal"
+      );
     }
 
     const id = new IdGenerator().generateId();
@@ -50,15 +49,29 @@ export default class UserBusiness {
       id,
       name,
       email,
+      whatsapp,
       hashPassword,
       cep,
       street,
       district,
       number,
-      reference
+      reference,
+      role
     );
 
-    // const userDatabase = new UserDatabase()
-    // await userDatabase.createUser(newUser);
+    const userDatabase = new UserDatabase();
+    await userDatabase.createUser(newUser);
+
+    const payload: authenticationData = {
+      id: newUser.getId(),
+    };
+
+    const token = new Authenticator().generateToken(payload);
+
+    const response = {
+      token,
+    };
+
+    return response;
   };
 }

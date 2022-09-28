@@ -14,6 +14,7 @@ export default class UserController {
         district: req.body.district,
         number: req.body.number,
         reference: req.body.reference,
+        role: req.body.role,
       };
       const userBusiness = new UserBusiness();
       const response = await userBusiness.signup(input);
