@@ -1,10 +1,12 @@
 import * as jwt from "jsonwebtoken";
 import dotenv from "dotenv";
+import { UserRole } from "../types";
 
 dotenv.config();
 
 export type authenticationData = {
   id: string;
+  role: UserRole;
 };
 
 export default class Authenticator {

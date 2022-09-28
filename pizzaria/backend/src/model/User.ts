@@ -1,3 +1,5 @@
+import { UserRole } from "../types";
+
 export interface UserDB {
   id: string;
   name: string;
@@ -9,7 +11,7 @@ export interface UserDB {
   district: string;
   number: string;
   reference: string;
-  role: string;
+  role: UserRole;
 }
 
 export default class User {
@@ -24,7 +26,7 @@ export default class User {
     private district: string,
     private number: string,
     private reference: string,
-    private role: string
+    private role: UserRole
   ) {}
 
   public getId = () => {
@@ -90,7 +92,7 @@ export default class User {
   public setReference = (newReference: string) => {
     this.reference = newReference;
   };
-  public setRole = (newRole: string) => {
+  public setRole = (newRole: UserRole) => {
     this.role = newRole;
   };
 }

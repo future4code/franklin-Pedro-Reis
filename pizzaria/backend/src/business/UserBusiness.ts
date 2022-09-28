@@ -64,6 +64,7 @@ export default class UserBusiness {
 
     const payload: authenticationData = {
       id: newUser.getId(),
+      role: newUser.getRole(),
     };
 
     const token = new Authenticator().generateToken(payload);
