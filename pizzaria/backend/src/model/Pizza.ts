@@ -7,6 +7,23 @@ export interface PizzaTypesAtDatabase {
   status: PizzaFlavorStatus;
 }
 
+export interface GetPizzas {
+  token: string | undefined;
+  search: string;
+  order: string;
+  sort: string;
+  limit: string;
+  page: string;
+}
+
+export interface GetPizzasSearch {
+  search: string;
+  order: string;
+  sort: string;
+  limit: number;
+  offset: number;
+}
+
 export default class Pizza {
   constructor(
     private id: string,
