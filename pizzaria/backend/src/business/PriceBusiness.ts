@@ -36,15 +36,7 @@ export default class PriceBusiness {
       );
     }
 
-    if (
-      tipo_id !==
-      (PizzaSize.BROTO ||
-        PizzaSize.FAMILIA ||
-        PizzaSize.MEDIA ||
-        PizzaSize.SUPERGG ||
-        PizzaSize.REDONDA ||
-        PizzaSize.OUTROS)
-    ) {
+    if (!Object.values(PizzaSize).includes(tipo_id)) {
       throw new Error("Tamanho de pizza inválido");
     }
 
@@ -76,9 +68,7 @@ export default class PriceBusiness {
     await priceDatabase.setPrice(pizzaPrice);
 
     const response = {
-      message: `Preço da pizza ${pizzaAtDb.name} no tamanho ${{
-        sizeAtDb,
-      }} agora é ${price}`,
+      message: `Preço da pizza ${pizzaAtDb.name} no tamanho ${tipo_id} agora é ${price}`,
     };
 
     return response;
