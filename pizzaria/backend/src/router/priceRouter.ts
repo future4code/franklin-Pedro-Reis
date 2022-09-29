@@ -18,3 +18,4 @@ const priceController = new PriceController(
 );
 
 priceRouter.post("/setPrice", priceController.setPizzaPrice);
+priceRouter.get("/pizzaPrices", priceController.getPizzasPrices);

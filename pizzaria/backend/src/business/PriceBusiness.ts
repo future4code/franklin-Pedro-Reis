@@ -1,7 +1,11 @@
 import PizzaDatabase from "../database/PizzaDatabase";
 import PriceDatabase from "../database/PriceDatabase";
 import Pizza from "../model/Pizza";
-import Price from "../model/Price";
+import Price, {
+  GetPizzaPrice,
+  GetPizzaPriceSearch,
+  PriceTypeAtDatabase,
+} from "../model/Price";
 import Authenticator from "../services/authenticator";
 import HashManager from "../services/hashManager";
 import { IdGenerator } from "../services/idGenerator";
@@ -69,6 +73,42 @@ export default class PriceBusiness {
 
     const response = {
       message: `Preço da pizza ${pizzaAtDb.name} no tamanho ${tipo_id} agora é ${price}`,
+    };
+
+    return response;
+  };
+  public getPizzaPrice = async (input: GetPizzaPrice) => {
+    const token = input.token;
+    const search = input.search || "";
+    const order = input.order || "name";
+    const sort = input.sort || "ASC";
+    const limit = Number(input.limit) || 10;
+    const page = Number(input.page) || 1;
+
+    const offset = limit * (page - 1);
+
+    if (!token) {
+      throw new Error("Token faltando");
+    }
+
+    const payload = this.authenticator.getTokenData(token);
+
+    if (!payload) {
+      throw new Error("Token inválido");
+    }
+
+    const getPricesInput: GetPizzaPriceSearch = {
+      search,
+      order,
+      sort,
+      limit,
+      offset,
+    };
+
+    const pricesList = await this.priceDatabase.getPrices(getPricesInput);
+
+    const response: any = {
+      pricesList,
     };
 
     return response;

@@ -1,5 +1,8 @@
 import { PizzaTypesAtDatabase } from "../model/Pizza";
-import Price, { PriceTypeAtDatabase } from "../model/Price";
+import Price, {
+  GetPizzaPriceSearch,
+  PriceTypeAtDatabase,
+} from "../model/Price";
 import { PizzaSize } from "../types";
 import { BaseDatabase } from "./BaseDatabase";
 import PizzaDatabase from "./PizzaDatabase";
@@ -36,5 +39,35 @@ export default class PriceDatabase extends BaseDatabase {
       .where({ id });
 
     return sizeAtDb[0];
+  };
+  public getPrices = async (input: GetPizzaPriceSearch) => {
+    const search = input.search;
+    const order = input.order;
+    const sort = input.sort;
+    const limit = input.limit;
+    const offset = input.offset;
+
+    const pricesAtDB: PriceTypeAtDatabase[] = await BaseDatabase.connections(
+      PriceDatabase.PIZZA_PRICES
+    )
+      .select(
+        "pizzaria_sabores.name",
+        "pizzaria_precos.tipo_id",
+        "pizzaria_sabores.description",
+        "pizzaria_sabores.status",
+        "pizzaria_precos.price"
+      )
+      .from(PriceDatabase.PIZZA_PRICES)
+      .innerJoin(
+        PizzaDatabase.PIZZA_FLAVORS,
+        "pizzaria_precos.sabor_id",
+        "=",
+        "pizzaria_sabores.id"
+      )
+      .orderBy(order, sort)
+      .limit(limit)
+      .offset(offset);
+
+    return pricesAtDB;
   };
 }

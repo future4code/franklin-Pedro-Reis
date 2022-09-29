@@ -7,6 +7,22 @@ export interface PriceTypeAtDatabase {
   price: number;
 }
 
+export interface GetPizzaPrice {
+  token: string | undefined;
+  search: string;
+  order: string;
+  sort: string;
+  limit: string;
+  page: string;
+}
+
+export interface GetPizzaPriceSearch {
+  search: string;
+  order: string;
+  sort: string;
+  limit: number;
+  offset: number;
+}
 export default class Price {
   constructor(
     private id: string,
