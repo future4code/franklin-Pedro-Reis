@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import { userRouter } from "./router/userRouter";
 import { pizzaRouter } from "./router/pizzaRouter";
+import { priceRouter } from "./router/priceRouter";
 
 const app = express();
 app.use(express.json());
@@ -14,3 +15,4 @@ export default app;
 
 app.use("/", userRouter);
 app.use("/", pizzaRouter);
+app.use("/", priceRouter);

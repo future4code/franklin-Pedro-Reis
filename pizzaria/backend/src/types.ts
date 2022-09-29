@@ -20,3 +20,12 @@ export enum PizzaFlavorStatus {
   IN_STOCK = "inStock",
   OUT_OF_STOCK = "notInStock",
 }
+
+export enum PizzaSize {
+  BROTO = "broto",
+  MEDIA = "media",
+  FAMILIA = "familia",
+  SUPERGG = "superGG",
+  REDONDA = "redonda",
+  OUTROS = "outros",
+}
