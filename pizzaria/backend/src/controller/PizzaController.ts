@@ -57,8 +57,8 @@ export class PizzaController {
         token: req.headers.authorization,
         id: req.params.id,
         name: req.body.name,
-        email: req.body.email,
-        password: req.body.password,
+        description: req.body.description,
+        status: req.body.status,
       };
 
       const response = await this.pizzaBusiness.editPizzaStatus(input);

@@ -17,6 +17,6 @@ export interface SingUpInputTypes {
 }
 
 export enum PizzaFlavorStatus {
-  INSTOCK = "sem estoque",
-  OUTOFSTOCK = "em estoque",
+  IN_STOCK = "inStock",
+  OUT_OF_STOCK = "notInStock",
 }

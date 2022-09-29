@@ -7,7 +7,7 @@ import Pizza, {
 import Authenticator from "../services/authenticator";
 import HashManager from "../services/hashManager";
 import { IdGenerator } from "../services/idGenerator";
-import { UserRole } from "../types";
+import { PizzaFlavorStatus, UserRole } from "../types";
 
 export default class PizzaBusiness {
   constructor(
@@ -109,6 +109,14 @@ export default class PizzaBusiness {
 
     if (!status) {
       throw new Error("Por favor, insira o status de estoque da pizza.");
+    }
+    if (
+      status !== PizzaFlavorStatus.IN_STOCK &&
+      status !== PizzaFlavorStatus.OUT_OF_STOCK
+    ) {
+      throw new Error(
+        "Por favor, insira inStock para pizza em estoque e notInStock para pizza sem estoque."
+      );
     }
     const payload = this.authenticator.getTokenData(token);
 
