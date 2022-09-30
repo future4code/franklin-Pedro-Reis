@@ -31,6 +31,15 @@ export default class PriceDatabase extends BaseDatabase {
 
     return pizzaAtDb[0];
   };
+  public selectPizzaByPriceId = async (id: string) => {
+    const pizzaAtDb: PriceDatabase[] = await BaseDatabase.connections(
+      PriceDatabase.PIZZA_PRICES
+    )
+      .select()
+      .where({ id });
+
+    return pizzaAtDb[0];
+  };
   public selectSize = async (id: string) => {
     const sizeAtDb: PizzaSize[] = await BaseDatabase.connections(
       PriceDatabase.PIZZA_SIZES

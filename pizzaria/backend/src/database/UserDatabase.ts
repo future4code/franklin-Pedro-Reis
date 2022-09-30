@@ -13,7 +13,6 @@ export default class UserDatabase extends BaseDatabase {
 
     return usersDB[0];
   };
-
   public createUser = async (user: User) => {
     const newUser: UserTypesAtDatabase = {
       id: user.getId(),

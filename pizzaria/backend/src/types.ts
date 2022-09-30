@@ -29,3 +29,9 @@ export enum PizzaSize {
   REDONDA = "redonda",
   OUTROS = "outros",
 }
+
+export enum OrderStatus {
+  PREPARANDO = "preparando",
+  DELIVERY = "delivery",
+  FINALIZADO = "finalizado",
+}
