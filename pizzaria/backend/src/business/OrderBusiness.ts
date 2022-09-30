@@ -1,5 +1,4 @@
 import OrderDatabase from "../database/OrderDatabase";
-import PizzaDatabase from "../database/PizzaDatabase";
 import PriceDatabase from "../database/PriceDatabase";
 import UserDatabase from "../database/UserDatabase";
 import Order from "../model/Order";
@@ -11,7 +10,6 @@ import { OrderStatus } from "../types";
 export default class OrderBusiness {
   constructor(
     protected orderDatabase: OrderDatabase,
-    protected pizzaDatabase: PizzaDatabase,
     protected userDatabase: UserDatabase,
     protected priceDatabase: PriceDatabase,
     protected authenticator: Authenticator,

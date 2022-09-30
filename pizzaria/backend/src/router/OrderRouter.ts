@@ -14,7 +14,6 @@ export const orderRouter = Router();
 const orderController = new OrderController(
   new OrderBusiness(
     new OrderDatabase(),
-    new PizzaDatabase(),
     new UserDatabase(),
     new PriceDatabase(),
     new Authenticator(),

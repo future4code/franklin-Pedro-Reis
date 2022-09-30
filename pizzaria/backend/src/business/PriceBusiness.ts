@@ -1,11 +1,5 @@
-import PizzaDatabase from "../database/PizzaDatabase";
 import PriceDatabase from "../database/PriceDatabase";
-import Pizza from "../model/Pizza";
-import Price, {
-  GetPizzaPrice,
-  GetPizzaPriceSearch,
-  PriceTypeAtDatabase,
-} from "../model/Price";
+import Price, { GetPizzaPrice, GetPizzaPriceSearch } from "../model/Price";
 import Authenticator from "../services/authenticator";
 import HashManager from "../services/hashManager";
 import { IdGenerator } from "../services/idGenerator";

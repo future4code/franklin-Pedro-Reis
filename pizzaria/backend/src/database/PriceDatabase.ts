@@ -60,6 +60,7 @@ export default class PriceDatabase extends BaseDatabase {
       PriceDatabase.PIZZA_PRICES
     )
       .select(
+        "pizzaria_precos.id",
         "pizzaria_sabores.name",
         "pizzaria_precos.tipo_id",
         "pizzaria_sabores.description",
