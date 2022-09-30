@@ -19,6 +19,7 @@ export default class OrderBusiness {
     protected hashManager: HashManager
   ) {}
   public createOrder = async (input: any) => {
+    const id = input.id;
     const client_email = input.client_email;
     const price_id = input.price_id;
     const quantity = input.quantity;
@@ -30,7 +31,6 @@ export default class OrderBusiness {
     if (!payload) {
       throw new Error("Token inválido ou faltando");
     }
-    console.log(client_email, price_id, quantity);
 
     if (!client_email || !price_id || !quantity) {
       throw new Error("Por favor, preencha os dados do pedido.");
@@ -62,8 +62,9 @@ export default class OrderBusiness {
     if (!userEmail) {
       throw new Error("Email do usuário incorreto na requisição");
     }
-
-    const id = new IdGenerator().generateId();
+    if (!id) {
+      throw new Error("Insira o id do pedido");
+    }
 
     const newOrder = new Order(
       id,

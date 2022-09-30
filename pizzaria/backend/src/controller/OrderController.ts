@@ -8,6 +8,7 @@ export class OrderController {
     try {
       const input: any = {
         token: req.headers.authorization,
+        id: req.body.id,
         client_email: req.body.client_email,
         price_id: req.body.price_id,
         quantity: req.body.quantity,
