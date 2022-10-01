@@ -23,3 +23,5 @@ const orderController = new OrderController(
 );
 
 orderRouter.post("/orderPizza", orderController.newOrder);
+orderRouter.get("/order/:id", orderController.getOrderById);
+orderRouter.get("/orders/", orderController.getOrders);

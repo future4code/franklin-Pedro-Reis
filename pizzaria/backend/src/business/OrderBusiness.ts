@@ -1,11 +1,11 @@
 import OrderDatabase from "../database/OrderDatabase";
 import PriceDatabase from "../database/PriceDatabase";
 import UserDatabase from "../database/UserDatabase";
-import Order from "../model/Order";
+import Order, { GetOrderSearch } from "../model/Order";
 import Authenticator from "../services/authenticator";
 import HashManager from "../services/hashManager";
 import { IdGenerator } from "../services/idGenerator";
-import { OrderStatus } from "../types";
+import { OrderStatus, UserRole } from "../types";
 
 export default class OrderBusiness {
   constructor(
@@ -77,6 +77,48 @@ export default class OrderBusiness {
 
     const response = {
       newOrder,
+    };
+
+    return response;
+  };
+  public getOrderById = async (input: any) => {
+    const { token, id } = input;
+
+    const payload = this.authenticator.getTokenData(token);
+
+    if (!payload) {
+      throw new Error("Token inválido ou faltando");
+    }
+
+    const selectedOrder = await this.orderDatabase.getOrderById(id);
+
+    if (!selectedOrder) {
+      throw new Error("Pedido não existe ou incorreto");
+    }
+
+    const response = {
+      selectedOrder,
+    };
+
+    return response;
+  };
+  public getOrders = async (input: any) => {
+    const { token } = input;
+
+    const payload = this.authenticator.getTokenData(token);
+
+    if (!payload) {
+      throw new Error("Token inválido ou faltando");
+    }
+
+    if (payload.role !== UserRole.ADMIN) {
+      throw new Error("Apenas ver a lista de pedidos");
+    }
+
+    const orderList = await this.orderDatabase.getOrders();
+
+    const response = {
+      orderList,
     };
 
     return response;
