@@ -8,6 +8,7 @@ interface InputFieldProps {
   id: string;
   name: string;
   value: string;
+  onChange: any;
 }
 
 export const InputField = (props: InputFieldProps) => {
@@ -30,6 +31,7 @@ export const InputField = (props: InputFieldProps) => {
         height="50px"
         background="rgba(118, 0, 0, 1)"
         border="none"
+        onChange={props.onChange}
       />
     </InputDiv>
   );

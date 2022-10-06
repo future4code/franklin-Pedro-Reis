@@ -7,6 +7,7 @@ export const MainDiv = styled.div`
 `;
 
 export const ButtonDiv = styled.div`
+  margin-top: 20px;
   display: flex;
   flex-direction: column;
   align-itens: center;
@@ -29,6 +30,5 @@ export const RowAlignDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-itens: center;
-  justify-content: space-evenly;
-  height: 100vh;
+  justify-content: flex-end;
 `;

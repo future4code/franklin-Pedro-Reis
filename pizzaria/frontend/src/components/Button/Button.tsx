@@ -4,11 +4,12 @@ interface ButtonProps {
   text: string;
   color: string;
   onClick: () => void;
+  type: "button" | "submit" | "reset" | undefined;
 }
 
 export const Button = (props: ButtonProps) => {
   return (
-    <StyledButton onClick={props.onClick} color={props.color}>
+    <StyledButton type={props.type} onClick={props.onClick} color={props.color}>
       {props.text}
     </StyledButton>
   );

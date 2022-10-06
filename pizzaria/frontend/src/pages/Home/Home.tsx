@@ -8,8 +8,9 @@ export const Home = () => {
     <RowAlignDiv>
       Bem vindo
       <ButtonDiv>
-        <Button onClick={goToLogin} color="white" text="Login" />
+        <Button type="button" onClick={goToLogin} color="white" text="Login" />
         <Button
+          type="button"
           onClick={goToSignUp}
           color="rgba(86, 0, 0, 1)"
           text="Criar Conta"

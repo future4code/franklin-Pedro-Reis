@@ -6,101 +6,124 @@ import {
   VerticalAlignDiv,
 } from "../../components";
 import { InputField } from "../../components/Input/InputField";
+import { useForm } from "../../hooks/useForm";
 
 export const SignUp = () => {
+  const { form, onChange, cleanFields } = useForm({
+    name: "",
+    email: "",
+    whatsapp: "",
+    password: "",
+    cep: "",
+    number: "",
+    street: "",
+    district: "",
+    reference: "",
+  });
+
+  const onSubmitForm = (e: any) => {
+    e.preventDefault();
+    console.log(form);
+    cleanFields();
+  };
+
   return (
     <RowAlignDiv>
-      <InputDiv>
-        <InputField
-          label="Nome"
-          placeholder="nome"
-          id="name"
-          name="name"
-          value="name"
-          type="text"
-        />
-        <InputField
-          label="E-mail"
-          placeholder="nome@email.com"
-          id="email"
-          name="email"
-          value="email"
-          type="email"
-        />
-        <InputField
-          label="WhatsApp"
-          placeholder="(xx) xxxxx-xxxx"
-          id="whatsapp"
-          name="whatsapp"
-          value="whatsapp"
-          type="tel"
-        />
-        <InputField
-          label="Senha"
-          placeholder="No mínimo 6 caracteres"
-          id="password"
-          name="password"
-          value="password"
-          type="password"
-        />
-        <VerticalAlignDiv>
+      <form onSubmit={onSubmitForm}>
+        <InputDiv>
           <InputField
-            label="CEP"
-            placeholder="xxxxx-xxx"
-            id="CEP"
-            name="CEP"
-            value="CEP"
+            label="Nome"
+            placeholder="nome"
+            id="name"
+            name="name"
+            value={form.name}
+            type="text"
+            onChange={onChange}
+          />
+          <InputField
+            label="E-mail"
+            placeholder="nome@email.com"
+            id="email"
+            name="email"
+            value={form.email}
+            onChange={onChange}
+            type="email"
+          />
+          <InputField
+            label="WhatsApp"
+            placeholder="(xx) xxxxx-xxxx"
+            id="whatsapp"
+            name="whatsapp"
+            value={form.whatsapp}
+            onChange={onChange}
+            type="tel"
+          />
+          <InputField
+            label="Senha"
+            placeholder="No mínimo 6 caracteres"
+            id="password"
+            name="password"
+            value={form.password}
+            onChange={onChange}
+            type="password"
+          />
+          <VerticalAlignDiv>
+            <InputField
+              label="CEP"
+              placeholder="xxxxx-xxx"
+              id="cep"
+              name="cep"
+              value={form.cep}
+              onChange={onChange}
+              type=""
+            />
+            <InputField
+              label="Número"
+              placeholder="xx"
+              id="number"
+              name="number"
+              value={form.number}
+              onChange={onChange}
+              type="number"
+            />
+          </VerticalAlignDiv>
+          <InputField
+            label="Endereço"
+            placeholder="Rua x"
+            id="address"
+            name="address"
+            value={form.address}
+            onChange={onChange}
             type=""
           />
           <InputField
-            label="Número"
-            placeholder="xx"
-            id="number"
-            name="number"
-            value="number"
-            type="number"
+            label="Bairro"
+            placeholder="Bairro"
+            id="district"
+            name="district"
+            value={form.district}
+            onChange={onChange}
+            type=""
           />
-        </VerticalAlignDiv>
-        <InputField
-          label="Endereço"
-          placeholder="Rua x"
-          id="address"
-          name="address"
-          value="address"
-          type=""
-        />
-        <InputField
-          label="Complemento"
-          placeholder="Apartamento, bloco, casa, etc"
-          id="complement"
-          name="complement"
-          value="complement"
-          type=""
-        />
-        <InputField
-          label="Bairro"
-          placeholder="Bairro"
-          id="district"
-          name="district"
-          value="district"
-          type=""
-        />
-        <InputField
-          label="Referência"
-          placeholder="Perto do mercadinho"
-          id="reference"
-          name="reference"
-          value="reference"
-          type=""
-        />
-      </InputDiv>
-      <ButtonDiv>
-        <Button
-          onClick={() => alert("clicou")}
-          color="rgba(86, 0, 0, 1)"
-          text="Criar conta"
-        />
-      </ButtonDiv>
+          <InputField
+            label="Referência"
+            placeholder="Perto do mercadinho"
+            id="reference"
+            name="reference"
+            value={form.reference}
+            onChange={onChange}
+            type=""
+          />
+        </InputDiv>
+        <ButtonDiv>
+          <Button
+            type="submit"
+            onClick={() => console.log(form)}
+            color="rgba(86, 0, 0, 1)"
+            text="Criar conta"
+          />
+        </ButtonDiv>
+      </form>
     </RowAlignDiv>
   );
 };
