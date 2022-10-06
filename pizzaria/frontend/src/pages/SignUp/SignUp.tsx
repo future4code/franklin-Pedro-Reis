@@ -7,8 +7,12 @@ import {
 } from "../../components";
 import { InputField } from "../../components/Input/InputField";
 import { useForm } from "../../hooks/useForm";
+import { useAppNavigate } from "../../router/coordinator";
+import { signup } from "../../services/signup";
 
 export const SignUp = () => {
+  const { goToUserHome } = useAppNavigate();
+
   const { form, onChange, cleanFields } = useForm({
     name: "",
     email: "",
@@ -23,7 +27,7 @@ export const SignUp = () => {
 
   const onSubmitForm = (e: any) => {
     e.preventDefault();
-    console.log(form);
+    signup(form);
     cleanFields();
   };
 
@@ -90,9 +94,9 @@ export const SignUp = () => {
           <InputField
             label="Endereço"
             placeholder="Rua x"
-            id="address"
-            name="address"
-            value={form.address}
+            id="street"
+            name="street"
+            value={form.street}
             onChange={onChange}
             type=""
           />
@@ -118,7 +122,7 @@ export const SignUp = () => {
         <ButtonDiv>
           <Button
             type="submit"
-            onClick={() => console.log(form)}
+            onClick={() => goToUserHome()}
             color="rgba(86, 0, 0, 1)"
             text="Criar conta"
           />

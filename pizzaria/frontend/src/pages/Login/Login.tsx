@@ -1,8 +1,11 @@
 import { Button, ButtonDiv, InputDiv, RowAlignDiv } from "../../components";
 import { InputField } from "../../components/Input/InputField";
 import { useForm } from "../../hooks/useForm";
+import { useAppNavigate } from "../../router/coordinator";
+import { login } from "../../services/login";
 
 export const Login = () => {
+  const { goToUserHome, goToAdminHome } = useAppNavigate();
   const { form, onChange, cleanFields } = useForm({
     email: "",
     password: "",
@@ -10,8 +13,17 @@ export const Login = () => {
 
   const onSubmitForm = (e: any) => {
     e.preventDefault();
-    console.log(form);
+    login(form);
     cleanFields();
+  };
+
+  const goToUserRoleHomePage = async () => {
+    const response = await login(form);
+    if (response?.data.user.role === "admin") {
+      goToAdminHome();
+    } else {
+      goToUserHome();
+    }
   };
 
   return (
@@ -40,7 +52,7 @@ export const Login = () => {
         <ButtonDiv>
           <Button
             type="submit"
-            onClick={() => alert(`${form.email} ${form.password}`)}
+            onClick={() => goToUserRoleHomePage()}
             color="white"
             text="Login"
           />
