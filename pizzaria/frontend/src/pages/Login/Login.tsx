@@ -1,13 +1,6 @@
 import { Box } from "@chakra-ui/react";
-import React, { FormEvent } from "react";
-import {
-  Button,
-  ButtonDiv,
-  InputDiv,
-  RowAlignDiv,
-  NotLoggedDiv,
-  InputField,
-} from "../../components";
+import { FormEvent } from "react";
+import { Button, ButtonDiv, InputDiv, InputField } from "../../components";
 import { useForm } from "../../hooks/useForm";
 import { useAppNavigate } from "../../router/coordinator";
 import { login } from "../../services/login";

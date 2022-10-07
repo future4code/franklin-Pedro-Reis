@@ -1,5 +1,5 @@
 import { Box, Text } from "@chakra-ui/react";
-import { FormEvent } from "react";
+import { FormEvent, useState } from "react";
 import {
   WhiteBackGroundDiv,
   ButtonDiv,
@@ -10,17 +10,21 @@ import {
 import { Title } from "../../components/Title/Title";
 import { useForm } from "../../hooks/useForm";
 import { useAppNavigate } from "../../router/coordinator";
+import { createPizza } from "../../services/Admin/addPizza";
 
 export const AdminAddItem = () => {
   const { goToAdminSetPrice } = useAppNavigate();
+  const [addedPizza, setAddedPizza] = useState("");
+
   const { form, onChange, cleanFields } = useForm({
     name: "",
     description: "",
   });
 
-  const onSubmitForm = (event: FormEvent) => {
+  const onSubmitForm = async (event: FormEvent) => {
     event.preventDefault();
-    console.log(form);
+    const createPizzaResponse = await createPizza(form);
+    setAddedPizza(createPizzaResponse.id);
     cleanFields();
   };
 
@@ -75,7 +79,7 @@ export const AdminAddItem = () => {
               text="Adicionar pizza"
             />
             <Button
-              onClick={() => goToAdminSetPrice("pizza")}
+              onClick={() => goToAdminSetPrice(addedPizza)}
               type="button"
               color="rgba(86, 0, 0, 1)"
               text="Definir preço"

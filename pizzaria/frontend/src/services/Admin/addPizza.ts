@@ -1,5 +1,4 @@
-import axios from "axios";
-import { BASE_URL } from "../../constants/urls";
+import { instance } from "../api";
 
 interface PizzaProps {
   name: string;
@@ -14,7 +13,7 @@ interface PizzaPriceProps {
 
 export const createPizza = async (body: PizzaProps) => {
   try {
-    const response = await axios.post(`${BASE_URL}/createPizza`, body);
+    const response = await instance.post(`/createPizza`, body);
     alert(response.data.message);
     return response.data;
   } catch (error) {
@@ -24,7 +23,7 @@ export const createPizza = async (body: PizzaProps) => {
 
 export const addPizzaPrice = async (body: PizzaPriceProps) => {
   try {
-    const response = await axios.post(`${BASE_URL}/setPrice`, body);
+    const response = await instance.post(`/setPrice`, body);
     alert(response.data.message);
     return response.data;
   } catch (error) {

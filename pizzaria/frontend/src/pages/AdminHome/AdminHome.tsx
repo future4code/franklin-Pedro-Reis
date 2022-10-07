@@ -1,5 +1,6 @@
-import { Box } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 import { Button, ButtonDiv } from "../../components";
+import { Title } from "../../components/Title/Title";
 import { useAppNavigate } from "../../router/coordinator";
 
 export const AdminHome = () => {
@@ -12,10 +13,20 @@ export const AdminHome = () => {
       alignItems="center"
       justifyContent="center"
       css={`
-        margin-top: 20px;
+        margin-top: 30px;
       `}
     >
-      Bem vindo, admin! Como podemos ajudar?
+      <Title text={"APP DE PEDIDOS"} />
+      <Text
+        fontSize="lg"
+        textAlign="center"
+        color="black"
+        css={`
+          padding: 10px;
+        `}
+      >
+        Como podemos ajuda-lo hoje?
+      </Text>
       <ButtonDiv>
         <Button
           onClick={goToAdminOrders}

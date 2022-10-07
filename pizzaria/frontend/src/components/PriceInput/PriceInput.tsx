@@ -3,6 +3,8 @@ import { InputDiv } from "../styled/styled";
 import styled from "styled-components";
 import { useForm } from "../../hooks/useForm";
 import { FormEvent } from "react";
+import { useParams } from "react-router-dom";
+import { addPizzaPrice } from "../../services/Admin/addPizza";
 
 const PriceInputLabel = styled.label`
   font-style: normal;
@@ -21,13 +23,16 @@ interface PriceInputProps {
 }
 
 export const PriceInput = (props: PriceInputProps) => {
-  const { form, onChange, cleanFields } = useForm("");
+  const params = useParams();
+  const { form, onChange } = useForm({
+    sabor_id: params.id,
+    tipo_id: props.name,
+    price: "",
+  });
 
   const onSubmitForm = (event: FormEvent) => {
     event.preventDefault();
-    console.log(form);
-    alert(form);
-    cleanFields();
+    addPizzaPrice(form);
   };
 
   return (
@@ -45,9 +50,8 @@ export const PriceInput = (props: PriceInputProps) => {
           <PriceInputLabel>{props.label}</PriceInputLabel>
           <Input
             type={props.type}
-            id={props.name}
-            name={props.name}
-            value={form.name}
+            name="price"
+            value={form.price}
             placeholder={props.placeholder}
             width="150px"
             height="50px"

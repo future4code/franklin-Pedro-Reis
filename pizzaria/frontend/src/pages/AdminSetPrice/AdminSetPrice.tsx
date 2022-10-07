@@ -1,8 +1,10 @@
 import { Button, ButtonDiv, PriceInput } from "../../components";
 import { Box, Text } from "@chakra-ui/react";
 import { Title } from "../../components/Title/Title";
+import { useAppNavigate } from "../../router/coordinator";
 
 export const AdminSetPrice = () => {
+  const { goToAdminHome } = useAppNavigate();
   return (
     <div>
       <Box
@@ -37,16 +39,12 @@ export const AdminSetPrice = () => {
         <PriceInput
           label="SUPER GG"
           placeholder="R$"
-          name="supergg"
+          name="superGG"
           type="text"
         />
         <ButtonDiv>
           <Button
-            type="button"
-            color="rgba(86, 0, 0, 1)"
-            text="Definir preços"
-          />
-          <Button
+            onClick={goToAdminHome}
             type="button"
             color="rgba(86, 0, 0, 1)"
             text="Voltar pra Home"
