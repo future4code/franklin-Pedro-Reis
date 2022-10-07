@@ -1,3 +1,4 @@
+import { Box } from "@chakra-ui/react";
 import React, { FormEvent } from "react";
 import {
   Button,
@@ -31,34 +32,41 @@ export const Login = () => {
   };
 
   return (
-    <NotLoggedDiv>
-      <RowAlignDiv>
-        <form onSubmit={onSubmitForm}>
-          <InputDiv>
-            <InputField
-              label="E-mail"
-              placeholder="nome@email.com"
-              id="email"
-              name="email"
-              value={form.email}
-              type="email"
-              onChange={onChange}
-            />
-            <InputField
-              label="Senha"
-              placeholder="******"
-              id="password"
-              name="password"
-              value={form.password}
-              type="password"
-              onChange={onChange}
-            />
-          </InputDiv>
-          <ButtonDiv>
-            <Button type="submit" color="white" text="Login" />
-          </ButtonDiv>
-        </form>
-      </RowAlignDiv>
-    </NotLoggedDiv>
+    <Box
+      display="flex"
+      flexDirection="column"
+      alignItems="center"
+      justifyContent="center"
+      css={`
+        height: 100vh;
+        background-color: rgba(144, 19, 19, 1);
+      `}
+    >
+      <form onSubmit={onSubmitForm}>
+        <InputDiv>
+          <InputField
+            label="E-mail"
+            placeholder="nome@email.com"
+            id="email"
+            name="email"
+            value={form.email}
+            type="email"
+            onChange={onChange}
+          />
+          <InputField
+            label="Senha"
+            placeholder="******"
+            id="password"
+            name="password"
+            value={form.password}
+            type="password"
+            onChange={onChange}
+          />
+        </InputDiv>
+        <ButtonDiv>
+          <Button type="submit" color="white" text="Login" />
+        </ButtonDiv>
+      </form>
+    </Box>
   );
 };

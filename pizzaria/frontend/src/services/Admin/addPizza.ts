@@ -31,15 +31,3 @@ export const addPizzaPrice = async (body: PizzaPriceProps) => {
     alert("Revise os campos e tente novamente");
   }
 };
-//post {"name": "Frango",
-//     "description": "Descricao",}
-//post { sabor_id: resposta do add pizza price;  tipo_id: string;  price: number;}
-
-// {
-//     "name": "Frango",
-//     "description": "Descricao",
-//     "broto": "10",
-//     "media": "20",
-//     "familia": "30",
-//     "supergg": "40"
-// }
