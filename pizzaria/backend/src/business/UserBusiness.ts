@@ -145,6 +145,7 @@ export default class UserBusiness {
     const response = {
       message: "Login realizado com sucesso",
       token,
+      user,
     };
 
     return response;

@@ -44,6 +44,7 @@ export default class PizzaBusiness {
 
     const response = {
       message: `Pizza de ${name} criada com sucesso!`,
+      id,
     };
 
     return response;
