@@ -1,4 +1,3 @@
-import { Center } from "@chakra-ui/react";
 import styled from "styled-components";
 
 const StyledTitle = styled.div`
@@ -6,6 +5,7 @@ const StyledTitle = styled.div`
   font-weight: 400;
   font-size: 26px;
   line-height: 31px;
+  text-align: center;
   color: #000000;
 `;
 interface TitleProps {
@@ -13,9 +13,5 @@ interface TitleProps {
 }
 
 export const Title = (props: TitleProps) => {
-  return (
-    <Center>
-      <StyledTitle>{props.text}</StyledTitle>
-    </Center>
-  );
+  return <StyledTitle>{props.text}</StyledTitle>;
 };

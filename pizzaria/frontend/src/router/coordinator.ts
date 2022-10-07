@@ -22,6 +22,9 @@ export const useAppNavigate = () => {
   const goToAdminAddItem = () => {
     navigate(`/admin/novo`);
   };
+  const goToAdminSetPrice = (pizzaId: string) => {
+    navigate(`/admin/alterar-preco/${pizzaId}`);
+  };
 
   const goToAdminOrders = () => {
     navigate(`/admin/pedidos`);
@@ -58,5 +61,6 @@ export const useAppNavigate = () => {
     goToUserMakeOrder,
     goToUserCheckout,
     goToUserOrderDetails,
+    goToAdminSetPrice,
   };
 };

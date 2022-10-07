@@ -17,7 +17,7 @@ export const ButtonDiv = styled.div`
 `;
 
 export const InputDiv = styled.div`
-  margin: 6px;
+  margin: 6px 0;
   display: flex;
   flex-direction: column;
   align-itens: center;
@@ -36,10 +36,10 @@ export const LoggedDiv = styled.div`
   display: flex;
   align-itens: center;
   justify-content: center;
-  padding-top: 10%;
+  padding-top: 20px;
   height: 100vh;
   background-color: white;
-  color: black;
+  color: white;
   label {
     color: rgba(118, 0, 0, 1);
   }

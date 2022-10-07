@@ -1,11 +1,16 @@
-import { Button, ButtonDiv, LoggedDiv, RowAlignDiv } from "../../components";
+import {
+  Button,
+  ButtonDiv,
+  WhiteBackGroundDiv,
+  RowAlignDiv,
+} from "../../components";
 import { useAppNavigate } from "../../router/coordinator";
 
 export const AdminHome = () => {
   const { goToAdminAddItem, goToAdminOrders } = useAppNavigate();
 
   return (
-    <LoggedDiv>
+    <WhiteBackGroundDiv>
       <RowAlignDiv>
         Bem vindo, admin! Como podemos ajudar?
         <ButtonDiv>
@@ -23,6 +28,6 @@ export const AdminHome = () => {
           />
         </ButtonDiv>
       </RowAlignDiv>
-    </LoggedDiv>
+    </WhiteBackGroundDiv>
   );
 };

@@ -21,6 +21,7 @@ export const signup = async (body: SignUpProps) => {
   try {
     const response = await axios.post(`${BASE_URL}/signup`, body);
     localStorage.setItem("token", response.data.token);
+    alert(response.data.message);
     return response;
   } catch (error) {
     alert("Revise seus dados");

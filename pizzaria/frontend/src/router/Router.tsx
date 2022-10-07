@@ -1,8 +1,15 @@
 import { Routes, Route } from "react-router-dom";
-import { AdminAddItem, AdminHome, Error, Login, SignUp } from "../pages";
+import {
+  AdminAddItem,
+  AdminHome,
+  AdminSetPrice,
+  Error,
+  Login,
+  SignUp,
+  Home,
+} from "../pages";
 import { AdminOrderDetails } from "../pages/AdminOrderDetails/AdminOrderDetails";
 import { AdminOrders } from "../pages/AdminOrders/AdminOrders";
-import { Home } from "../pages/Home/Home";
 import { UserCheckout } from "../pages/UserCheckout/UserCheckout";
 import { UserHome } from "../pages/UserHome/UserHome";
 import { UserMakeOrder } from "../pages/UserMakeOrder/UserMakeOrder";
@@ -17,6 +24,7 @@ export const Router = () => {
         <Route path="criar-conta" element={<SignUp />} />
         <Route path="admin" element={<AdminHome />} />
         <Route path="admin/novo" element={<AdminAddItem />} />
+        <Route path="admin/alterar-preco/:id" element={<AdminSetPrice />} />
         <Route path="admin/pedidos" element={<AdminOrders />} />
         <Route path="admin/pedidos/:id" element={<AdminOrderDetails />} />
         <Route path="*" element={<Error />} />
