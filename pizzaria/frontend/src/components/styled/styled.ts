@@ -20,6 +20,7 @@ export const InputDiv = styled.div`
   margin: 6px;
   display: flex;
   flex-direction: column;
+  align-itens: center;
 `;
 
 export const NotLoggedDiv = styled.div`
@@ -34,11 +35,14 @@ export const NotLoggedDiv = styled.div`
 export const LoggedDiv = styled.div`
   display: flex;
   align-itens: center;
-  justify-content: space-around;
+  justify-content: center;
   padding-top: 10%;
   height: 100vh;
   background-color: white;
   color: black;
+  label {
+    color: rgba(118, 0, 0, 1);
+  }
 `;
 
 export const RowAlignDiv = styled.div`

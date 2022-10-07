@@ -1,5 +1,6 @@
-import { Button, ButtonDiv, InputDiv, NotLoggedDiv } from "../../components";
-import { InputField } from "../../components/Input/InputField";
+import { FormEvent } from "react";
+import { Button, ButtonDiv, InputDiv } from "../../components";
+import { InputField } from "../../components/InputField/InputField";
 import { useForm } from "../../hooks/useForm";
 import { useAppNavigate } from "../../router/coordinator";
 import { signup } from "../../services/signup";
@@ -20,8 +21,8 @@ export const SignUp = () => {
     reference: "",
   });
 
-  const onSubmitForm = (e: any) => {
-    e.preventDefault();
+  const onSubmitForm = (event: FormEvent) => {
+    event.preventDefault();
     signup(form);
     cleanFields();
   };

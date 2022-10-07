@@ -5,8 +5,8 @@ import {
   InputDiv,
   RowAlignDiv,
   NotLoggedDiv,
+  InputField,
 } from "../../components";
-import { InputField } from "../../components/Input/InputField";
 import { useForm } from "../../hooks/useForm";
 import { useAppNavigate } from "../../router/coordinator";
 import { login } from "../../services/login";

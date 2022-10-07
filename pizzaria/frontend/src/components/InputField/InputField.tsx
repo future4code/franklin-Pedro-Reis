@@ -12,6 +12,15 @@ interface InputFieldProps {
 }
 
 export const InputField = (props: InputFieldProps) => {
+  const checkSize = () => {
+    if (props.label === "CEP") {
+      return "225px";
+    }
+    if (props.label === "Número") {
+      return "100px";
+    }
+    return "350px";
+  };
   return (
     <InputDiv>
       <label>{props.label}</label>
@@ -21,13 +30,7 @@ export const InputField = (props: InputFieldProps) => {
         name={props.name}
         value={props.value}
         placeholder={props.placeholder}
-        width={
-          props.label === "CEP"
-            ? "225px"
-            : "350px" && props.label === "Número"
-            ? "100px"
-            : "350px"
-        }
+        width={checkSize()}
         height="50px"
         background="rgba(118, 0, 0, 1)"
         border="none"
