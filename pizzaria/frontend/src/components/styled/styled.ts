@@ -4,6 +4,8 @@ export const MainDiv = styled.div`
   display: flex;
   align-itens: center;
   justify-content: center;
+  background-color: rgba(144, 19, 19, 1);
+  height: 100vh;
 `;
 
 export const ButtonDiv = styled.div`
@@ -20,15 +22,31 @@ export const InputDiv = styled.div`
   flex-direction: column;
 `;
 
-export const VerticalAlignDiv = styled.div`
+export const NotLoggedDiv = styled.div`
   display: flex;
   align-itens: center;
   justify-content: space-around;
+  padding-top: 10%;
+  height: 100vh;
+  background-color: rgba(144, 19, 19, 1);
+`;
+
+export const LoggedDiv = styled.div`
+  display: flex;
+  align-itens: center;
+  justify-content: space-around;
+  padding-top: 10%;
+  height: 100vh;
+  background-color: white;
+  color: black;
 `;
 
 export const RowAlignDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-itens: center;
-  justify-content: flex-end;
+`;
+
+export const WhiteBackGroundDiv = styled.div`
+  // background-color: white;
 `;

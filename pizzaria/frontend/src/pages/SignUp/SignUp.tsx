@@ -1,14 +1,9 @@
-import {
-  Button,
-  ButtonDiv,
-  InputDiv,
-  RowAlignDiv,
-  VerticalAlignDiv,
-} from "../../components";
+import { Button, ButtonDiv, InputDiv, NotLoggedDiv } from "../../components";
 import { InputField } from "../../components/Input/InputField";
 import { useForm } from "../../hooks/useForm";
 import { useAppNavigate } from "../../router/coordinator";
 import { signup } from "../../services/signup";
+import { CepAndNumberDiv, SignUpDiv } from "./styled";
 
 export const SignUp = () => {
   const { goToUserHome } = useAppNavigate();
@@ -32,7 +27,7 @@ export const SignUp = () => {
   };
 
   return (
-    <RowAlignDiv>
+    <SignUpDiv>
       <form onSubmit={onSubmitForm}>
         <InputDiv>
           <InputField
@@ -71,7 +66,7 @@ export const SignUp = () => {
             onChange={onChange}
             type="password"
           />
-          <VerticalAlignDiv>
+          <CepAndNumberDiv>
             <InputField
               label="CEP"
               placeholder="xxxxx-xxx"
@@ -90,7 +85,7 @@ export const SignUp = () => {
               onChange={onChange}
               type="number"
             />
-          </VerticalAlignDiv>
+          </CepAndNumberDiv>
           <InputField
             label="Endereço"
             placeholder="Rua x"
@@ -128,6 +123,6 @@ export const SignUp = () => {
           />
         </ButtonDiv>
       </form>
-    </RowAlignDiv>
+    </SignUpDiv>
   );
 };
