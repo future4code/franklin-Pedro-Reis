@@ -1,3 +1,4 @@
+import React, { FormEvent } from "react";
 import { Button, ButtonDiv, InputDiv, RowAlignDiv } from "../../components";
 import { InputField } from "../../components/Input/InputField";
 import { useForm } from "../../hooks/useForm";
@@ -6,24 +7,21 @@ import { login } from "../../services/login";
 
 export const Login = () => {
   const { goToUserHome, goToAdminHome } = useAppNavigate();
+
   const { form, onChange, cleanFields } = useForm({
     email: "",
     password: "",
   });
 
-  const onSubmitForm = (e: any) => {
-    e.preventDefault();
-    login(form);
-    cleanFields();
-  };
-
-  const goToUserRoleHomePage = async () => {
-    const response = await login(form);
-    if (response?.data.user.role === "admin") {
+  const onSubmitForm = async (event: FormEvent) => {
+    event.preventDefault();
+    const loginResponse = await login(form);
+    if (loginResponse.user.role === "admin") {
       goToAdminHome();
     } else {
       goToUserHome();
     }
+    cleanFields();
   };
 
   return (
@@ -50,12 +48,7 @@ export const Login = () => {
           />
         </InputDiv>
         <ButtonDiv>
-          <Button
-            type="submit"
-            onClick={() => goToUserRoleHomePage()}
-            color="white"
-            text="Login"
-          />
+          <Button type="submit" color="white" text="Login" />
         </ButtonDiv>
       </form>
     </RowAlignDiv>

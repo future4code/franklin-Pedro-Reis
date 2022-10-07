@@ -47,6 +47,7 @@ export const useAppNavigate = () => {
   };
 
   return {
+    goToHome,
     goToLogin,
     goToSignUp,
     goToAdminHome,

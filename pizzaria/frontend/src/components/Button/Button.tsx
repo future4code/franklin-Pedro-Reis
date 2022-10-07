@@ -3,7 +3,7 @@ import { StyledButton } from "./style";
 interface ButtonProps {
   text: string;
   color: string;
-  onClick: () => void;
+  onClick?: () => void;
   type: "button" | "submit" | "reset" | undefined;
 }
 

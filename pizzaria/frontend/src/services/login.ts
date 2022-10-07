@@ -14,8 +14,9 @@ export const login = async (body: LoginProps) => {
   try {
     const response = await axios.post(`${BASE_URL}/login`, body);
     localStorage.setItem("token", response.data.token);
-    return response;
+    alert(response.data.message);
+    return response.data;
   } catch (error) {
-    alert("Revise suas infos");
+    alert("Revise seus dados");
   }
 };
