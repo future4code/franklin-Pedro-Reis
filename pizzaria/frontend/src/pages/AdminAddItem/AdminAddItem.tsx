@@ -6,7 +6,6 @@ import {
   Button,
   InputDiv,
   InputField,
-  PriceInput,
 } from "../../components";
 import { Title } from "../../components/Title/Title";
 import { useForm } from "../../hooks/useForm";

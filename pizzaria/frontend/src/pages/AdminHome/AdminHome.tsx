@@ -1,3 +1,4 @@
+import { Box } from "@chakra-ui/react";
 import {
   Button,
   ButtonDiv,
@@ -11,7 +12,15 @@ export const AdminHome = () => {
 
   return (
     <WhiteBackGroundDiv>
-      <RowAlignDiv>
+      <Box
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+        justifyContent="center"
+        css={`
+          margin-top: 20px;
+        `}
+      >
         Bem vindo, admin! Como podemos ajudar?
         <ButtonDiv>
           <Button
@@ -27,7 +36,7 @@ export const AdminHome = () => {
             text="Adicionar pizzas"
           />
         </ButtonDiv>
-      </RowAlignDiv>
+      </Box>
     </WhiteBackGroundDiv>
   );
 };
