@@ -1,10 +1,11 @@
 import { Box, Select, Text } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { OrderDetailBox } from "../../components/OrderDetailBox/OrderDetailBox";
 import { Title } from "../../components/Title/Title";
 import { loadOrderDetail } from "../../services/Admin/loadOrderDetail";
 import { ChevronDownIcon } from "@chakra-ui/icons";
+import { LoggedUserContext } from "../../context/LoggedUserContext";
 
 interface OrderDetailDataType {
   quantity: number;
@@ -15,6 +16,8 @@ interface OrderDetailDataType {
 }
 
 export const AdminOrderDetails = () => {
+  const { loggedUser } = React.useContext(LoggedUserContext);
+
   const [order, setOrder] = useState<any[]>();
   const { id } = useParams();
 
@@ -90,9 +93,38 @@ export const AdminOrderDetails = () => {
         <option value="delivery">EM DELIVERY</option>
         <option value="finalizado">FINALIZADO</option>
       </Select>
-      <Box margin="20px 0">
+      <Box margin="20px 0" textAlign="center">
         <Title text={"ENTREGA"} />
       </Box>
+
+      <Text
+        css={`
+          padding: 6px;
+        `}
+      >
+        {loggedUser.name}
+      </Text>
+      <Text
+        css={`
+          padding: 6px;
+        `}
+      >
+        {loggedUser.whatsapp}
+      </Text>
+      <Text
+        css={`
+          padding: 6px;
+        `}
+      >
+        {loggedUser.street}, {loggedUser.number} - {loggedUser.cep}
+      </Text>
+      <Text
+        css={`
+          padding: 6px;
+        `}
+      >
+        {loggedUser.reference}
+      </Text>
     </Box>
   );
 };

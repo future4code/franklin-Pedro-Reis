@@ -1,12 +1,14 @@
 import { Box } from "@chakra-ui/react";
-import { FormEvent } from "react";
+import React, { FormEvent } from "react";
 import { Button, ButtonDiv, InputDiv, InputField } from "../../components";
+import { LoggedUserContext } from "../../context/LoggedUserContext";
 import { useForm } from "../../hooks/useForm";
 import { useAppNavigate } from "../../router/coordinator";
 import { login } from "../../services/login";
 
 export const Login = () => {
   const { goToUserHome, goToAdminHome } = useAppNavigate();
+  const { setLoggedUser } = React.useContext(LoggedUserContext);
 
   const { form, onChange, cleanFields } = useForm({
     email: "",
@@ -16,6 +18,7 @@ export const Login = () => {
   const onSubmitForm = async (event: FormEvent) => {
     event.preventDefault();
     const loginResponse = await login(form);
+    setLoggedUser(loginResponse.user);
     if (loginResponse.user.role === "admin") {
       goToAdminHome();
     } else {
