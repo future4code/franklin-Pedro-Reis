@@ -22,8 +22,10 @@ export default class OrderDatabase extends BaseDatabase {
     )
       .select(
         "pizzaria_orders.id",
+        "pizzaria_orders.date",
         "pizzaria_sabores.name",
         "pizzaria_orders.quantity",
+        "pizzaria_orders.status",
         "pizzaria_precos.tipo_id",
         "pizzaria_precos.price"
       )
@@ -48,9 +50,11 @@ export default class OrderDatabase extends BaseDatabase {
     )
       .select(
         "pizzaria_orders.id",
+        "pizzaria_orders.date",
         "pizzaria_sabores.name",
         "pizzaria_orders.quantity",
         "pizzaria_precos.tipo_id",
+        "pizzaria_orders.status",
         "pizzaria_precos.price"
       )
       .from(OrderDatabase.ORDERS)

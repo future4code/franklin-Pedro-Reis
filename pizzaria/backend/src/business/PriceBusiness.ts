@@ -42,10 +42,6 @@ export default class PriceBusiness {
       throw new Error("Insira o preço da pizza");
     }
 
-    if (price && typeof price !== "number") {
-      throw new Error("O preço aceita apenas números");
-    }
-
     const pizzaAtDb = await this.priceDatabase.selectPizza(sabor_id);
 
     if (!pizzaAtDb) {

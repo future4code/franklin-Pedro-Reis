@@ -1,12 +1,12 @@
 import { Box, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { Button, ButtonDiv, Order } from "../../components";
+import { Button, ButtonDiv, OrderItemBox } from "../../components";
 import { Title } from "../../components/Title/Title";
 import { useAppNavigate } from "../../router/coordinator";
 import { loadOrders } from "../../services/Admin/loadOrders";
 
 export const AdminOrders = () => {
-  const { goToAdminHome } = useAppNavigate();
+  const { goToAdminHome, goToAdminOrderDeatils } = useAppNavigate();
   const [orders, setOrders] = useState<any[]>();
 
   useEffect(() => {
@@ -15,7 +15,6 @@ export const AdminOrders = () => {
       setOrders(response.orderList);
     };
     loadedOrders();
-    console.log(orders);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -43,9 +42,11 @@ export const AdminOrders = () => {
       </Text>
       {orders &&
         orders.map((order: any) => (
-          <Order
+          <OrderItemBox
+            key={Math.random()}
+            onClick={() => goToAdminOrderDeatils(order.id)}
             date="24/10/2020"
-            order_id={order.id}
+            order_id={`#${order.id}`}
             price={`R$ ${order.quantity * order.price}`}
             status="Em entrega"
           />
