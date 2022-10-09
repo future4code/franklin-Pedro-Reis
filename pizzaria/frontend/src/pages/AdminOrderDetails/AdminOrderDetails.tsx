@@ -6,6 +6,8 @@ import { Title } from "../../components/Title/Title";
 import { loadOrderDetail } from "../../services/Admin/loadOrderDetail";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import { LoggedUserContext } from "../../context/LoggedUserContext";
+import { Button, ButtonDiv } from "../../components";
+import { useAppNavigate } from "../../router/coordinator";
 
 interface OrderDetailDataType {
   quantity: number;
@@ -16,6 +18,8 @@ interface OrderDetailDataType {
 }
 
 export const AdminOrderDetails = () => {
+  const { goToAdminHome } = useAppNavigate();
+
   const { loggedUser } = React.useContext(LoggedUserContext);
 
   const [order, setOrder] = useState<any[]>();
@@ -125,6 +129,14 @@ export const AdminOrderDetails = () => {
       >
         {loggedUser.reference}
       </Text>
+      <ButtonDiv>
+        <Button
+          onClick={goToAdminHome}
+          type="submit"
+          color="rgba(86, 0, 0, 1)"
+          text="Voltar para home"
+        />
+      </ButtonDiv>
     </Box>
   );
 };
