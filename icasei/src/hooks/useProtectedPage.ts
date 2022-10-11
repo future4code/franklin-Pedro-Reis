@@ -1,13 +1,12 @@
-import { useLayoutEffect } from "react";
-import { useAppNavigate } from "../routes/coordinator";
+import React, { useLayoutEffect } from "react";
+import { LoginContext } from "../context/Login";
 
 export const useProtectedPage = () => {
-  const { goToLogin } = useAppNavigate();
-  const token = localStorage.getItem("logado");
+  const { logout, loggedUser } = React.useContext(LoginContext);
 
   useLayoutEffect(() => {
-    if (!token) {
-      goToLogin();
+    if (loggedUser === undefined) {
+      logout();
     }
-  }, [goToLogin, token]);
+  }, [loggedUser, logout]);
 };

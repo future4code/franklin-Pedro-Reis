@@ -1,4 +1,4 @@
-import { Box, Link } from "@chakra-ui/react";
+import { Box, Link, Text } from "@chakra-ui/react";
 import React from "react";
 import { LoginContext } from "../../context/Login";
 import { ColorModeSwitcher } from "../ColorModeSwitcher/ColorModeSwitcher";
@@ -18,7 +18,10 @@ export const Header = () => {
         <ColorModeSwitcher />
       ) : (
         <>
-          <Box w="100px">Olá, {loggedUser.user}!</Box>
+          <Box w="100px">
+            <Text>Olá, {loggedUser.user}!</Text>
+            <Text>{loggedUser.email}</Text>
+          </Box>
           <Box w="100px">
             <ColorModeSwitcher />
           </Box>
