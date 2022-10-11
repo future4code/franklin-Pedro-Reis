@@ -1,5 +1,13 @@
-import { Box } from "@chakra-ui/react";
+import { SearchIcon } from "@chakra-ui/icons";
+import { Box, Input, InputGroup, InputRightElement } from "@chakra-ui/react";
 
 export const SearchPage = () => {
-  return <Box>Search Page</Box>;
+  return (
+    <Box>
+      <InputGroup>
+        <Input placeholder="Enter amount" />
+        <InputRightElement children={<SearchIcon />} />
+      </InputGroup>
+    </Box>
+  );
 };
