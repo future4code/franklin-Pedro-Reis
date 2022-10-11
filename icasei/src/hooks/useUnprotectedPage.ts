@@ -4,10 +4,11 @@ import { useAppNavigate } from "../routes/coordinator";
 export const useUnprotectedPage = () => {
   const { goToSearch } = useAppNavigate();
 
+  const token = localStorage.getItem("logado");
+
   useLayoutEffect(() => {
-    const token = localStorage.getItem("logado");
     if (token) {
       goToSearch();
     }
-  });
+  }, [goToSearch, token]);
 };
