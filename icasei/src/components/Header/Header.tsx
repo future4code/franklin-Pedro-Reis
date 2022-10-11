@@ -18,14 +18,14 @@ export const Header = () => {
         <ColorModeSwitcher />
       ) : (
         <>
-          <Box w="100px">
+          <Box w="120px">
             <Text>Olá, {loggedUser.user}!</Text>
-            <Text>{loggedUser.email}</Text>
+            <Text fontSize="xs">{loggedUser.email}</Text>
           </Box>
-          <Box w="100px">
+          <Box w="120px">
             <ColorModeSwitcher />
           </Box>
-          <Box w="100px">
+          <Box w="120px">
             <Link onClick={() => logout()}>Logout</Link>
           </Box>
         </>
