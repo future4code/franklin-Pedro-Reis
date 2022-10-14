@@ -1,3 +1,4 @@
+import { useToast } from "@chakra-ui/react";
 import React, { PropsWithChildren, useState } from "react";
 import { useAppNavigate } from "../routes/coordinator";
 
@@ -12,12 +13,26 @@ export const LoginProvider = ({ children }: PropsWithChildren) => {
   const [loggedUser, setLoggedUser] = useState<LoginProps>();
 
   const { goToSearch, goToLogin } = useAppNavigate();
+  const toast = useToast();
+
+  const validEmail = new RegExp(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g);
+  console.log();
 
   const login = (form: LoginProps) => {
-    localStorage.setItem("user", form.user);
-    localStorage.setItem("email", form.email);
-    setLoggedUser(form);
-    goToSearch();
+    if (validEmail.test(form.email)) {
+      localStorage.setItem("user", form.user);
+      localStorage.setItem("email", form.email);
+      setLoggedUser(form);
+      goToSearch();
+    } else {
+      toast({
+        title: "E-mail inválido.",
+        description: `Por favor, insira um e-mail válido.`,
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+      });
+    }
   };
 
   const logout = () => {

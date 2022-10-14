@@ -41,16 +41,15 @@ export const LoginPage = () => {
       </Box>
       <Box margin="20px">
         <Button
-          onClick={() =>
-            login(form) &&
+          onClick={() => {
             toast({
               title: "Login realizado.",
               description: `Bem vindo, ${form.user}.`,
               status: "success",
               duration: 9000,
               isClosable: true,
-            })
-          }
+            }) && login(form);
+          }}
           size="md"
         >
           Entrar
