@@ -12,20 +12,30 @@ interface VideoParams {
   statistics: { viewCount: string; likeCount: string };
 }
 
+interface SearchParams {
+  map(arg0: (videoData: any) => JSX.Element): React.ReactNode;
+  data: {
+    data: Array<{
+      items: {
+        snippet: {
+          title: string;
+          channelTitle: string;
+          thumbnails: { default: { url: string } };
+        };
+      };
+    }>;
+  };
+}
+
 export const VideoDetailsPage = () => {
   const { goToSearchResults } = useAppNavigate();
   const { setLoggedUser } = React.useContext(LoginContext);
 
   const [videoOnPlayer, setVideoOnPlayer] = useState<VideoParams | undefined>();
-  const [relatedVideos, setRelatedVideos] = useState<any>();
+  const [relatedVideos, setRelatedVideos] = useState<SearchParams>();
   // const [nextPageToken, setNextPageToken] = useState(undefined);
 
   const params = useParams();
-
-  const search = async (keyword: string) => {
-    const response = await searchYoutube(keyword, undefined, 8);
-    setRelatedVideos(response?.data.items);
-  };
 
   useEffect(() => {
     if (localStorage.getItem("user")?.length) {
@@ -45,12 +55,15 @@ export const VideoDetailsPage = () => {
     videoData();
   }, [params.id]);
 
+  const search = async (keyword: string | undefined) => {
+    const response = await searchYoutube(keyword, undefined, 8);
+    console.log(response);
+    setRelatedVideos(response?.data.items);
+  };
+
   useEffect(() => {
-    if (videoOnPlayer !== undefined) {
-      search(videoOnPlayer.snippet.localized.title);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    search(videoOnPlayer?.snippet.localized.title);
+  }, [videoOnPlayer]);
 
   const videoSrc = `https://www.youtube.com/embed/${params.id}`;
 

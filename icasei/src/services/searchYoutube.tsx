@@ -5,7 +5,7 @@ const VIDEO_URL = "https://www.googleapis.com/youtube/v3/videos";
 const KEY = "AIzaSyCrX1phOy0-qhqxXMrBYFGaxDis33qT4f0";
 
 export const searchYoutube = async (
-  keyword: string,
+  keyword: string | undefined,
   pageToken: string | undefined,
   maxResults: number
 ) => {
