@@ -1,6 +1,6 @@
 import { Box, Image, Text } from "@chakra-ui/react";
 
-export interface VideCardProps {
+export interface VideoCardProps {
   channelTitle: string;
   title: string;
   url: string;
@@ -12,7 +12,7 @@ export const VideoCardForSideBar = ({
   title,
   url,
   onClick,
-}: VideCardProps) => {
+}: VideoCardProps) => {
   return (
     <Box
       display="flex"

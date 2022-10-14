@@ -1,9 +1,7 @@
 import { Box } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { VideoCardForSideBar } from "../../components/VideoCardForSideBar/VideoCardForSideBar";
-import { VideoPlayer } from "../../components/VideoPlayer/VideoPlayer";
-import { LoginContext } from "../../context/Login";
+import { VideoCardForSideBar, VideoPlayer } from "../../components";
 import { useAppNavigate } from "../../routes/coordinator";
 import { loadYoutubeVideo, searchYoutube } from "../../services/searchYoutube";
 
@@ -12,41 +10,16 @@ interface VideoParams {
   statistics: { viewCount: string; likeCount: string };
 }
 
-interface SearchParams {
-  map(arg0: (videoData: any) => JSX.Element): React.ReactNode;
-  data: {
-    data: Array<{
-      items: {
-        snippet: {
-          title: string;
-          channelTitle: string;
-          thumbnails: { default: { url: string } };
-        };
-      };
-    }>;
-  };
-}
-
 export const VideoDetailsPage = () => {
   const { goToSearchResults } = useAppNavigate();
-  const { setLoggedUser } = React.useContext(LoginContext);
 
   const [videoOnPlayer, setVideoOnPlayer] = useState<VideoParams | undefined>();
-  const [relatedVideos, setRelatedVideos] = useState<SearchParams>();
-  // const [nextPageToken, setNextPageToken] = useState(undefined);
+  const [relatedVideos, setRelatedVideos] = useState<any>();
 
   const params = useParams();
+  const videoSrc = `https://www.youtube.com/embed/${params.id}`;
 
-  useEffect(() => {
-    if (localStorage.getItem("user")?.length) {
-      setLoggedUser({
-        user: localStorage.getItem("user"),
-        email: localStorage.getItem("email"),
-      });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
+  //pega o video da tela
   useEffect(() => {
     const videoData = async () => {
       const response = await loadYoutubeVideo(params.id);
@@ -55,17 +28,19 @@ export const VideoDetailsPage = () => {
     videoData();
   }, [params.id]);
 
-  const search = async (keyword: string | undefined) => {
-    const response = await searchYoutube(keyword, undefined, 8);
-    console.log(response);
-    setRelatedVideos(response?.data.items);
-  };
-
+  //pega os videos relacionados
   useEffect(() => {
-    search(videoOnPlayer?.snippet.localized.title);
+    const search = async () => {
+      const response = await searchYoutube(
+        videoOnPlayer?.snippet.localized.title,
+        undefined,
+        8
+      );
+      console.log(response);
+      setRelatedVideos(response?.data.items);
+    };
+    search();
   }, [videoOnPlayer]);
-
-  const videoSrc = `https://www.youtube.com/embed/${params.id}`;
 
   return (
     <Box display="flex" justifyContent="center" flexWrap="wrap">

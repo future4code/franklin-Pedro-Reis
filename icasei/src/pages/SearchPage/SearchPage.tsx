@@ -1,22 +1,11 @@
 import { SearchIcon } from "@chakra-ui/icons";
-import { Box, Input, InputGroup, InputRightElement } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
-import { VideoCardForSearch } from "../../components/VideoCardForSearch/VideoCardForSearch";
+import { InputGroup, Input, InputRightElement, Box } from "@chakra-ui/react";
+import React, { useState, useEffect } from "react";
+import { VideoCardForSearch } from "../../components";
 import { LoginContext } from "../../context/Login";
-import { useForm, useProtectedPage } from "../../hooks";
+import { useProtectedPage, useForm } from "../../hooks";
 import { useAppNavigate } from "../../routes/coordinator";
 import { searchYoutube } from "../../services/searchYoutube";
-
-// interface SearchParams {
-//   searchResults: Array<{
-//     id: { videoId: string };
-//     snippet: {
-//       title: string;
-//       channelTitle: string;
-//       thumbnails: { default: { url: string } };
-//     };
-//   }>;
-// }
 
 export const SearchPage = () => {
   useProtectedPage();
@@ -60,6 +49,7 @@ export const SearchPage = () => {
     ) {
       try {
         const newResults = await nextPageSearch();
+        console.log("pesquisou");
         searchResults.push(newResults);
       } catch (error) {
         console.log(error);
