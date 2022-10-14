@@ -6,16 +6,39 @@ import { useForm, useProtectedPage } from "../../hooks";
 import { searchYoutube } from "../../services/searchYoutube";
 
 export const SearchPage = () => {
-  const [searchResults, setSearchResults] = useState([]);
+  const [searchResults, setSearchResults] = useState<any>();
+  const [nextPageToken, setNextPageToken] = useState(undefined);
   useProtectedPage();
   const { form, onChange } = useForm({
     keyword: "",
   });
 
   const search = async (keyword: string) => {
-    const response = await searchYoutube(keyword);
+    setNextPageToken(undefined);
+    const response = await searchYoutube(keyword, nextPageToken);
+    setNextPageToken(response?.data.nextPageToken);
     setSearchResults(response?.data.items);
-    return response?.data.items;
+  };
+
+  const nextPageSearch = async () => {
+    const response = await searchYoutube(form.keyword, nextPageToken);
+    setNextPageToken(response?.data.nextPageToken);
+    const newList = [...searchResults, ...response?.data.items];
+    setSearchResults(newList);
+  };
+
+  window.onscroll = async function () {
+    if (
+      window.innerHeight + Math.ceil(window.pageYOffset) >=
+      document.body.offsetHeight
+    ) {
+      try {
+        const newResults = await nextPageSearch();
+        searchResults.push(newResults);
+      } catch (error) {
+        console.log(error);
+      }
+    }
   };
 
   return (
@@ -46,8 +69,7 @@ export const SearchPage = () => {
               <VideoCard
                 title={videoData.snippet.title}
                 channelTitle={videoData.snippet.channelTitle}
-                publishTime={videoData.snippet.publishTime}
-                thumbnail={videoData.snippet.thumbnails.default.url}
+                url={videoData.snippet.thumbnails.default.url}
               />
             );
           })}

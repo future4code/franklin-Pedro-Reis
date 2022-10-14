@@ -1,18 +1,12 @@
 import { Box, Image, Text } from "@chakra-ui/react";
 
-interface VideCardProps {
+export interface VideCardProps {
   channelTitle: string;
-  publishTime: string;
   title: string;
-  thumbnail: string;
+  url: string;
 }
 
-export const VideoCard = ({
-  channelTitle,
-  publishTime,
-  title,
-  thumbnail,
-}: VideCardProps) => {
+export const VideoCard = ({ channelTitle, title, url }: VideCardProps) => {
   return (
     <Box
       display="flex"
@@ -21,14 +15,21 @@ export const VideoCard = ({
       width="300px"
       height="300px"
       padding="10px"
-      margin="30px"
+      margin="10px"
+      maxW="300px"
     >
-      <Text fontSize="lg">
-        {title.length > 24 ? title.substring(0, 44) + "..." : title}
-      </Text>
-      <Text fontSize="md">{channelTitle}</Text>
-      <Image src={thumbnail} alt="title" width="200px" />
-      <Text>{publishTime}</Text>
+      <Image margin="10px" src={url} alt="title" width="300px" height="190px" />
+      <Box textAlign="left" width="300px">
+        <Text as="b" fontSize="lg" height="30px">
+          {title && title.length > 24 ? title.substring(0, 50) + "..." : title}
+        </Text>
+
+        <Text fontSize="md">
+          {channelTitle && channelTitle.length > 24
+            ? channelTitle.substring(0, 24) + "..."
+            : channelTitle}
+        </Text>
+      </Box>
     </Box>
   );
 };
