@@ -1,4 +1,4 @@
-import { Box, Button, FormLabel, Input } from "@chakra-ui/react";
+import { Box, Button, FormLabel, Input, useToast } from "@chakra-ui/react";
 import React from "react";
 import { LoginContext } from "../../context/Login";
 import { useForm, useUnprotectedPage } from "../../hooks";
@@ -12,6 +12,8 @@ export const LoginPage = () => {
     user: "",
     email: "",
   });
+
+  const toast = useToast();
 
   return (
     <Box padding="20px">
@@ -38,7 +40,19 @@ export const LoginPage = () => {
         />
       </Box>
       <Box margin="20px">
-        <Button onClick={() => login(form)} size="md">
+        <Button
+          onClick={() =>
+            login(form) &&
+            toast({
+              title: "Login realizado.",
+              description: `Bem vindo, ${form.user}.`,
+              status: "success",
+              duration: 9000,
+              isClosable: true,
+            })
+          }
+          size="md"
+        >
           Entrar
         </Button>
       </Box>
