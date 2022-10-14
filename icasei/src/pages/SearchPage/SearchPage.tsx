@@ -1,29 +1,53 @@
 import { SearchIcon } from "@chakra-ui/icons";
 import { Box, Input, InputGroup, InputRightElement } from "@chakra-ui/react";
-import { useState } from "react";
-import { VideoCard } from "../../components/VideoCard/VideoCard";
+import React, { useEffect, useState } from "react";
+import { VideoCardForSearch } from "../../components/VideoCardForSearch/VideoCardForSearch";
+import { LoginContext } from "../../context/Login";
 import { useForm, useProtectedPage } from "../../hooks";
 import { useAppNavigate } from "../../routes/coordinator";
 import { searchYoutube } from "../../services/searchYoutube";
 
+// interface SearchParams {
+//   searchResults: Array<{
+//     id: { videoId: string };
+//     snippet: {
+//       title: string;
+//       channelTitle: string;
+//       thumbnails: { default: { url: string } };
+//     };
+//   }>;
+// }
+
 export const SearchPage = () => {
+  useProtectedPage();
+  const { setLoggedUser } = React.useContext(LoginContext);
   const { goToSearchResults } = useAppNavigate();
+
   const [searchResults, setSearchResults] = useState<any>();
   const [nextPageToken, setNextPageToken] = useState(undefined);
-  useProtectedPage();
   const { form, onChange } = useForm({
     keyword: "",
   });
 
+  useEffect(() => {
+    if (localStorage.getItem("user")?.length) {
+      setLoggedUser({
+        user: localStorage.getItem("user"),
+        email: localStorage.getItem("email"),
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const search = async (keyword: string) => {
     setNextPageToken(undefined);
-    const response = await searchYoutube(keyword, nextPageToken);
+    const response = await searchYoutube(keyword, nextPageToken, 24);
     setNextPageToken(response?.data.nextPageToken);
     setSearchResults(response?.data.items);
   };
 
   const nextPageSearch = async () => {
-    const response = await searchYoutube(form.keyword, nextPageToken);
+    const response = await searchYoutube(form.keyword, nextPageToken, 24);
     setNextPageToken(response?.data.nextPageToken);
     const newList = [...searchResults, ...response?.data.items];
     setSearchResults(newList);
@@ -68,7 +92,7 @@ export const SearchPage = () => {
         {searchResults &&
           searchResults.map((videoData: any) => {
             return (
-              <VideoCard
+              <VideoCardForSearch
                 title={videoData.snippet.title}
                 channelTitle={videoData.snippet.channelTitle}
                 url={videoData.snippet.thumbnails.default.url}
