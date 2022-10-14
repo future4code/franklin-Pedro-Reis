@@ -23,6 +23,13 @@ export const LoginProvider = ({ children }: PropsWithChildren) => {
       localStorage.setItem("user", form.user);
       localStorage.setItem("email", form.email);
       setLoggedUser(form);
+      toast({
+        title: "Login realizado.",
+        description: `Bem vindo, ${form.user}.`,
+        status: "success",
+        duration: 9000,
+        isClosable: true,
+      });
       goToSearch();
     } else {
       toast({
