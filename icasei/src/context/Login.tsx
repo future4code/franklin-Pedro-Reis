@@ -37,8 +37,16 @@ export const LoginProvider = ({ children }: PropsWithChildren) => {
 
   const logout = () => {
     setLoggedUser(undefined);
+    toast({
+      title: "Deslogado com sucesso.",
+      description: `Volte sempre :)`,
+      status: "info",
+      duration: 9000,
+      isClosable: true,
+    });
     localStorage.removeItem("user");
     localStorage.removeItem("email");
+
     goToLogin();
   };
 
