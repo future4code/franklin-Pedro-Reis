@@ -3,9 +3,11 @@ import { Box, Input, InputGroup, InputRightElement } from "@chakra-ui/react";
 import { useState } from "react";
 import { VideoCard } from "../../components/VideoCard/VideoCard";
 import { useForm, useProtectedPage } from "../../hooks";
+import { useAppNavigate } from "../../routes/coordinator";
 import { searchYoutube } from "../../services/searchYoutube";
 
 export const SearchPage = () => {
+  const { goToSearchResults } = useAppNavigate();
   const [searchResults, setSearchResults] = useState<any>();
   const [nextPageToken, setNextPageToken] = useState(undefined);
   useProtectedPage();
@@ -70,6 +72,7 @@ export const SearchPage = () => {
                 title={videoData.snippet.title}
                 channelTitle={videoData.snippet.channelTitle}
                 url={videoData.snippet.thumbnails.default.url}
+                onClick={() => goToSearchResults(videoData.id.videoId)}
               />
             );
           })}

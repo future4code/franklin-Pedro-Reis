@@ -4,9 +4,15 @@ export interface VideCardProps {
   channelTitle: string;
   title: string;
   url: string;
+  onClick: () => void;
 }
 
-export const VideoCard = ({ channelTitle, title, url }: VideCardProps) => {
+export const VideoCard = ({
+  channelTitle,
+  title,
+  url,
+  onClick,
+}: VideCardProps) => {
   return (
     <Box
       display="flex"
@@ -17,6 +23,7 @@ export const VideoCard = ({ channelTitle, title, url }: VideCardProps) => {
       padding="10px"
       margin="10px"
       maxW="300px"
+      onClick={onClick}
     >
       <Image margin="10px" src={url} alt="title" width="300px" height="190px" />
       <Box textAlign="left" width="300px">
