@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { PropsWithChildren, useState } from "react";
 import { useAppNavigate } from "../routes/coordinator";
 
 export const LoginContext = React.createContext<any>(undefined);
@@ -8,8 +8,8 @@ interface LoginProps {
   email: string;
 }
 
-export const LoginProvider = ({ children }: any) => {
-  const [loggedUser, setLoggedUser] = useState<any>();
+export const LoginProvider = ({ children }: PropsWithChildren) => {
+  const [loggedUser, setLoggedUser] = useState<LoginProps>();
 
   const { goToSearch, goToLogin } = useAppNavigate();
 
