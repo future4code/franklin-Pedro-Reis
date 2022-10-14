@@ -2,18 +2,19 @@ import axios from "axios";
 
 const SEARCH_URL = "https://www.googleapis.com/youtube/v3/search";
 const VIDEO_URL = "https://www.googleapis.com/youtube/v3/videos";
-const KEY = "AIzaSyASOhNPt1jMcSmRbOwcxRbF1Dr25ruI_to";
+const KEY = "AIzaSyCrX1phOy0-qhqxXMrBYFGaxDis33qT4f0";
 
 export const searchYoutube = async (
   keyword: string,
-  pageToken: string | undefined
+  pageToken: string | undefined,
+  maxResults: number
 ) => {
   const params = {
     part: "snippet",
     key: KEY,
     q: keyword,
     type: "video",
-    maxResults: 50,
+    maxResults: maxResults,
     pageToken: pageToken,
   };
 
