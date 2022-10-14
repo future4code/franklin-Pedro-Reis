@@ -10,7 +10,7 @@ export const useAppNavigate = () => {
     navigate("/search");
   };
   const goToSearchResults = (id: string) => {
-    navigate("/search/id");
+    navigate(`/watch/${id}`);
   };
   return { goToLogin, goToSearch, goToSearchResults };
 };
