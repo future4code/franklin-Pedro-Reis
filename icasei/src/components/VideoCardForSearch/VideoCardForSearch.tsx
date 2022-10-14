@@ -7,7 +7,7 @@ export interface VideCardProps {
   onClick: () => void;
 }
 
-export const VideoCard = ({
+export const VideoCardForSearch = ({
   channelTitle,
   title,
   url,
