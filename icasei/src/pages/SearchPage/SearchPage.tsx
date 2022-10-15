@@ -1,32 +1,35 @@
 import { SearchIcon } from "@chakra-ui/icons";
 import { InputGroup, Input, InputRightElement, Box } from "@chakra-ui/react";
-import React, { useState, useEffect } from "react";
+import { FormEvent, useState } from "react";
 import { VideoCardForSearch } from "../../components";
-import { LoginContext } from "../../context/Login";
 import { useProtectedPage, useForm } from "../../hooks";
 import { useAppNavigate } from "../../routes/coordinator";
 import { searchYoutube } from "../../services/searchYoutube";
 
+interface snippet {
+  snippet: Array<VideoSearchParams>;
+}
+
+export interface VideoSearchParams {
+  data: {
+    snippet: {
+      channelTitle: string;
+      description: string;
+      title: string;
+      thumbnails: { default: { url: string } };
+    };
+  };
+}
+
 export const SearchPage = () => {
   useProtectedPage();
-  const { setLoggedUser } = React.useContext(LoginContext);
   const { goToSearchResults } = useAppNavigate();
 
-  const [searchResults, setSearchResults] = useState<any>();
+  const [searchResults, setSearchResults] = useState<snippet[] | []>([]);
   const [nextPageToken, setNextPageToken] = useState(undefined);
   const { form, onChange } = useForm({
     keyword: "",
   });
-
-  useEffect(() => {
-    if (localStorage.getItem("user")?.length) {
-      setLoggedUser({
-        user: localStorage.getItem("user"),
-        email: localStorage.getItem("email"),
-      });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const search = async (keyword: string) => {
     setNextPageToken(undefined);
@@ -48,13 +51,17 @@ export const SearchPage = () => {
       document.body.offsetHeight
     ) {
       try {
-        const newResults = await nextPageSearch();
-        console.log("pesquisou");
+        const newResults = (await nextPageSearch()) as never;
         searchResults.push(newResults);
       } catch (error) {
         console.log(error);
       }
     }
+  };
+
+  const onSubmit = (event: FormEvent) => {
+    event.preventDefault();
+    search(form.keyword);
   };
 
   return (
@@ -64,20 +71,23 @@ export const SearchPage = () => {
       flexDirection="column"
       alignItems="center"
     >
-      <InputGroup w="300px">
-        <Input
-          id="keyword"
-          name="keyword"
-          value={form.keyword}
-          type="text"
-          onChange={onChange}
-          placeholder="Pesquisar"
-        />
-        <InputRightElement
-          onClick={() => search(form.keyword)}
-          children={<SearchIcon />}
-        />
-      </InputGroup>
+      <form onSubmit={onSubmit}>
+        <InputGroup w="300px">
+          <Input
+            id="keyword"
+            name="keyword"
+            value={form.keyword}
+            type="text"
+            onChange={onChange}
+            placeholder="Pesquisar"
+          />
+          <InputRightElement
+            as="button"
+            onClick={onSubmit}
+            children={<SearchIcon />}
+          />
+        </InputGroup>
+      </form>
       <Box display="flex" flexWrap="wrap" justifyContent="center">
         {searchResults &&
           searchResults.map((videoData: any) => {

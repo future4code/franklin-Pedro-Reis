@@ -5,16 +5,32 @@ import { VideoCardForSideBar, VideoPlayer } from "../../components";
 import { useAppNavigate } from "../../routes/coordinator";
 import { loadYoutubeVideo, searchYoutube } from "../../services/searchYoutube";
 
-interface VideoParams {
+interface VideoPlayerParams {
   snippet: { localized: { description: string; title: string } };
   statistics: { viewCount: string; likeCount: string };
+}
+interface RelatedVideoParams {
+  map(
+    arg0: (videoData: RelatedVideoParams) => JSX.Element
+  ): import("react").ReactNode;
+  snippet: {
+    title: string;
+    channelTitle: string;
+    thumbnails: { default: { url: string } };
+  };
+  id: { videoId: string };
 }
 
 export const VideoDetailsPage = () => {
   const { goToSearchResults } = useAppNavigate();
 
-  const [videoOnPlayer, setVideoOnPlayer] = useState<VideoParams | undefined>();
-  const [relatedVideos, setRelatedVideos] = useState<any>();
+  const [videoOnPlayer, setVideoOnPlayer] = useState<
+    VideoPlayerParams | undefined
+  >();
+  const [relatedVideos, setRelatedVideos] = useState<RelatedVideoParams[] | []>(
+    []
+  );
+  const [nextPageToken, setNextPageToken] = useState(undefined);
 
   const params = useParams();
   const videoSrc = `https://www.youtube.com/embed/${params.id}`;
@@ -36,11 +52,35 @@ export const VideoDetailsPage = () => {
         undefined,
         8
       );
-      console.log(response);
       setRelatedVideos(response?.data.items);
     };
     search();
   }, [videoOnPlayer]);
+
+  const nextPageSearch = async () => {
+    const response = await searchYoutube(
+      videoOnPlayer?.snippet.localized.title,
+      nextPageToken,
+      8
+    );
+    setNextPageToken(response?.data.nextPageToken);
+    const newList = [...relatedVideos, ...response?.data.items];
+    setRelatedVideos(newList);
+  };
+
+  window.onscroll = async function () {
+    if (
+      window.innerHeight + Math.ceil(window.pageYOffset) >=
+      document.body.offsetHeight
+    ) {
+      try {
+        const newResults = (await nextPageSearch()) as never;
+        relatedVideos.push(newResults);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
 
   return (
     <Box display="flex" justifyContent="center" flexWrap="wrap">
@@ -55,7 +95,7 @@ export const VideoDetailsPage = () => {
       )}
       <Box marginLeft="20px">
         {relatedVideos &&
-          relatedVideos.map((videoData: any) => {
+          relatedVideos.map((videoData: RelatedVideoParams) => {
             return (
               <VideoCardForSideBar
                 title={videoData.snippet.title}

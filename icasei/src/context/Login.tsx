@@ -16,7 +16,6 @@ export const LoginProvider = ({ children }: PropsWithChildren) => {
   const toast = useToast();
 
   const validEmail = new RegExp(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g);
-  console.log();
 
   const login = (form: LoginProps) => {
     if (validEmail.test(form.email)) {
