@@ -18,15 +18,18 @@ export const VideoCardForSearch = ({
       display="flex"
       flexDir="column"
       alignItems="center"
-      width="300px"
-      height="300px"
-      padding="10px"
+      width="420px"
+      height="340px"
+      padding="20px"
       margin="10px"
       maxW="300px"
       onClick={onClick}
+      _hover={{
+        background: "#4A5568",
+      }}
     >
-      <Image margin="10px" src={url} alt="title" width="300px" height="190px" />
-      <Box textAlign="left" width="300px">
+      <Image src={url} alt="title" width="300px" height="190px" />
+      <Box padding="10px" textAlign="left" width="300px">
         <Text as="b" fontSize="lg" height="30px">
           {title && title.length > 24 ? title.substring(0, 50) + "..." : title}
         </Text>

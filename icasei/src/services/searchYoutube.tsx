@@ -2,7 +2,7 @@ import axios from "axios";
 
 const SEARCH_URL = "https://www.googleapis.com/youtube/v3/search";
 const VIDEO_URL = "https://www.googleapis.com/youtube/v3/videos";
-const KEY = "AIzaSyAzr7GApyEaKWcjtDtTArV9v52F_h00a-o";
+const KEY = "AIzaSyDye1SAn4Y8WrHZ_1q5N3yzkHcYZ3dT-Fg";
 
 export const searchYoutube = async (
   keyword: string | undefined,

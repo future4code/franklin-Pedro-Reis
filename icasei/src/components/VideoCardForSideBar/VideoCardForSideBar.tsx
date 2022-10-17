@@ -22,6 +22,9 @@ export const VideoCardForSideBar = ({
       margin="10px"
       height="120px"
       width="400px"
+      _hover={{
+        background: "#4A5568",
+      }}
     >
       <Image
         marginRight="10px"

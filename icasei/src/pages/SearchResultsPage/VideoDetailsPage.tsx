@@ -10,9 +10,6 @@ interface VideoPlayerParams {
   statistics: { viewCount: string; likeCount: string };
 }
 interface RelatedVideoParams {
-  map(
-    arg0: (videoData: RelatedVideoParams) => JSX.Element
-  ): import("react").ReactNode;
   snippet: {
     title: string;
     channelTitle: string;
